@@ -1,0 +1,11 @@
+* {
+	font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial";
+}
+
+body {
+	margin: 0 auto;
+}
+
+div.container div.ui.menu {
+	border-radius: none !important;
+}
