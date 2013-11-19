@@ -1,7 +1,7 @@
 ﻿define(['viewmodels/createTask'], function (viewModel) {
 
     var 
-        dataContext = require('dataContext'),
+        dataContext = require('service/dataContext'),
         router = require('plugins/router');
         // system = require('durandal/system');
 

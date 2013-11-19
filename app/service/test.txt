@@ -1,0 +1,1 @@
+There are several place you may want to override functionality of the router. Here's a list of relevant functions:

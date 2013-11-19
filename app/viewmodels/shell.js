@@ -28,16 +28,17 @@
     function activate() {
 
         router.map([
-            { route: '', moduleId: 'viewmodels/library' }
+            { route: '', moduleId: 'viewmodels/library', title: 'Library' }
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
-
+        
         return router.activate();
     }
 
     return {
         activate: activate,
+        router: router,
         sidebar: self.sidebar,
         login: self.login
     };

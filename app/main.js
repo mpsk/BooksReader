@@ -15,7 +15,7 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/app', 'durandal/system', 'durandal/viewLocator', 'dataContext'], 
+define(['durandal/app', 'durandal/system', 'durandal/viewLocator', 'service/dataContext'], 
 function (app, system, viewLocator, dataContext) {
 
     system.debug(false);

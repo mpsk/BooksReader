@@ -1,3 +1,40 @@
-<section>
-	Library books
+<section class="library">
+	
+	<div class="br-header">
+		<div class="ui icon small input br-search">
+	  		<input type="text" placeholder="Search Books...">
+	  		<i class="search icon"></i>
+		</div>
+		<div class="ui secondary small button br-addbook" data-bind="click: addBook">
+	  		Add Book
+		</div>
+		
+		<input type="file" class="ui secondary small button" id="file"/>
+	</div>
+
+	<div class="content">
+		<div data-bind="text: books"></div>
+	</div>
 </section>
+
+
+<style>
+
+.library {
+	padding: 10px;
+}
+
+.library div.br-header {
+	width: 100%;
+}
+
+.library div.br-search  {
+	float: right;
+	padding-left: 10px;
+}
+
+.library div.br-addbook {
+	float: right;
+}
+
+</style>
