@@ -5,11 +5,15 @@
 	  		<input type="text" placeholder="Search Books...">
 	  		<i class="search icon"></i>
 		</div>
-		<div class="ui secondary small button br-addbook" data-bind="click: addBook">
+		<div class="ui secondary small button br-addbook file_upload">
 	  		Add Book
+	  		<!-- <button type="button">Add Book</button> -->
+	  		<input type="file" id="file"/>
 		</div>
-		
-		<input type="file" class="ui secondary small button" id="file"/>
+		<div>
+		<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>
+		<!-- <input type="file" class="ui secondary small button br-addbook" id="file" value="Add Book" data-bind="click: getFile"/> -->
+		</div>
 	</div>
 
 	<div class="content">
@@ -19,6 +23,25 @@
 
 
 <style>
+
+.file_upload{
+	cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.file_upload input[type=file]{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(20);
+    letter-spacing: 10em;     /* IE 9 fix */
+    -ms-transform: scale(20); /* IE 9 fix */
+    opacity: 0;
+    cursor: pointer
+}
 
 .library {
 	padding: 10px;
@@ -35,6 +58,12 @@
 
 .library div.br-addbook {
 	float: right;
+}
+
+.library input[type=file] {
+	/*width: 0;
+	height: 0;
+	padding: 10px 20px;*/
 }
 
 </style>

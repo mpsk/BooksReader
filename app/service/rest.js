@@ -5,7 +5,7 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 		library: 	'http://localhost:5984/bookreader/'
 	};
 
-	var self = {
+	var rest = {
 		library: function(){
 			var dfd = $.Deferred();
 
@@ -22,5 +22,5 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 		}
 	};
 
-	return self;
+	return rest;
 });
