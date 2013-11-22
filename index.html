@@ -7,6 +7,7 @@
     <link href="css/semantic/css/semantic.css" rel="stylesheet" media="screen">
     <link href="css/durandal.css" rel="stylesheet" media="screen">
     <link href="css/main.css" rel="stylesheet" media="screen">
+	<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 </head>
 <body>
 
@@ -21,6 +22,19 @@
 	<script src="app/service/facebook.js"></script>
 
     <script src="scripts/require/require.js" data-main="app/main"></script>
+	 <div id="fb-root"></div>
+	 <!-- Here we place login button -->
+        <div id="login" style="display:none">
+            you need to login in order to use this app.
+            <a href="javascript:;">Login</a>
+        </div>
 
+        <!-- Here we place user information -->
+        <div id="userinfo"></div>
+
+        <!-- Here we place logout button -->
+        <div id="logout" style="display:none">
+            <a href="javascript:;">Logout</a>
+        </div>
 </body>
 </html>
