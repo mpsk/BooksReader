@@ -9,8 +9,7 @@ define([], function () {
 				//alert( data.text );
 				console.log( data.text );
 			  }
-			});   
-	
+			});   	
     };
 
     return translator;
