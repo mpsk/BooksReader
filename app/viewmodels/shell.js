@@ -33,6 +33,7 @@
             if (profile.fbId()) {
                 FB.logout(function(data){
                     data.status === 'unknown' ? profile.btnText('Login') : 'WTF?'
+                    profile.fbId('');
                 });
 
             } else {
