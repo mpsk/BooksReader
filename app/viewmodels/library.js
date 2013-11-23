@@ -18,6 +18,9 @@ define(['durandal/app', 'durandal/system', 'service/rest', 'service/reader'], fu
 				books(JSON.stringify(db));
 			});
 	    }
+
+	  
+   		
 	    
 	};
 
