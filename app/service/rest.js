@@ -32,7 +32,7 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 				.done(function(result){
 					var result = JSON.parse(result);
 					console.warn(result);
-					if (result.total_rows > 0) {
+					if (result.rows.length > 0) {
 						dfd.resolve(result.rows[0]);
 
 					} else {
