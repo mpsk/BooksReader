@@ -29,6 +29,8 @@ define(['durandal/app', 'durandal/system', 'service/rest', 'service/reader'], fu
 		setTimeout(function(){
 			self.applyEvents();
 		}, 100);
+
+		console.warn($('.library #file'));
 	};
 
     return {

@@ -2,6 +2,10 @@ define([], function () {
     
     var facebook = {
 
+        user: {
+
+        },
+
         loggedin: function() {
             // показываем кнопку "выйти" и ставим на нее обработчик события
             // $('#logout').css('display', 'block').click(function() {
@@ -52,19 +56,29 @@ define([], function () {
         getUserFriends: function(id) {
             FB.api('/'+id+'/friends', function(response){
                 $.each(response.data, function(index, value){
-                    $('#userinfo').append(makecard(25, 'https://graph.facebook.com/'+value.id+'/picture', value.name, value.id));
+                    // $('#userinfo').append(facebook.makecard(25, 'https://graph.facebook.com/'+value.id+'/picture', value.name, value.id));
                     facebook.getUserLikes(value.id);
                 });
             });
         },
 
         // эта функция выводит карточку пользователя
-        getUserInfo: function() {
-            FB.api('/me', function(response){
-                $('#userinfo').html(makecard(0, 'https://graph.facebook.com/'+response.id+'/picture', response.name, response.id));
-                facebook.getUserFriends(response.id);
-                facebook.getUserLikes(response.id);
-            });
+        getUserInfo: function(data) {
+            var dfd = $.Deferred();
+            if (data.status === 'connected') {
+                FB.api('/me', function(response){
+
+                    dfd.resolve(response);
+
+                    // $('#userinfo').html(facebook.makecard(0, 'https://graph.facebook.com/'+response.id+'/picture', response.name, response.id));
+                    // facebook.getUserFriends(response.id);
+                    // facebook.getUserLikes(response.id);
+                });
+            } else {
+                dfd.resolve(data);
+            }
+
+            return dfd.promise();
         }
 
     };
