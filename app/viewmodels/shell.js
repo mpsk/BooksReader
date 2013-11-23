@@ -78,13 +78,13 @@
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
 
-        // FB.init({appId: '653741407981313', status: true, cookie: true, xfbml: true});
-        FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
-        FB.getLoginStatus(function(data) {
-            self.getCurrentUser(data);
+        return router.activate().then(function(data){
+            // FB.init({appId: '653741407981313', status: true, cookie: true, xfbml: true});
+            FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
+            FB.getLoginStatus(function(data) {
+                self.getCurrentUser(data);
+            });
         });
-        
-        return router.activate();
     }
 
     return {
