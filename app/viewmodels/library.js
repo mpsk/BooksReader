@@ -5,36 +5,23 @@ define(['durandal/app', 'durandal/system', 'service/rest', 'service/reader'], fu
 
 	var self = {
 
-	    addBook: function(evt){
+	    addBook: function(vm, evt){
+	    	console.warn(evt);
 	    	reader.getFile(evt).then(function(book){
 	    		console.warn(book);
 	    	});
 	    },
 
 	    getLibrary: function(){
-			REST.library().then(function(library) {
-				console.warn(library);
-				books(JSON.stringify(library));
+			REST.root().then(function(db) {
+				console.warn(db);
+				books(JSON.stringify(db));
 			});
-	    },
-
-	    applyEvents: function(){
-	    	$('.library #file').on('change', self.addBook);
 	    }
-	};
-
-
-	function activate (arg){
-		// TODO: Fix according to Durandal events.
-		setTimeout(function(){
-			self.applyEvents();
-		}, 100);
-
-		console.warn($('.library #file'));
+	    
 	};
 
     return {
-    	activate: activate,
         books: books,
         addBook: self.addBook,
         getLibrary: self.getLibrary

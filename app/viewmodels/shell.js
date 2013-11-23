@@ -1,14 +1,13 @@
-﻿define(['plugins/router', 'service/facebook'], function (router, facebook) {
+﻿define(['plugins/router', 'service/facebook', 'service/rest'], function (router, facebook, rest) {
 
-    var user = {
-        id: ko.observable(),
-        first_name: ko.observable(),
+    var REST = rest;
+
+    var profile = {
+        fbId: ko.observable(),
         username: ko.observable(),
-        photo: ko.observable(),
+        name: ko.observable(),
         btnText: ko.observable()
     };
-
-    var loginBtn = ko.observable();
 
     var self = {
         sidebar: function(e, ev){
@@ -31,20 +30,42 @@
 
         login: function(){
 
-            if (user.id()) {
+            if (profile.fbId()) {
                 FB.logout(function(data){
-                    data.status === 'unknown' ? user.btnText('Login') : ''
+                    data.status === 'unknown' ? profile.btnText('Login') : 'WTF?'
                 });
+
             } else {
                 FB.login(function(data){
-                    facebook.getUserInfo(data).then(function(response){
-                        user.btnText(response.first_name);
-                        user.id(response.id);
-                        user.username(response.username);
-                    });
+                    self.getCurrentUser(data);
                 });
             }
 
+        },
+
+        getCurrentUser: function(data){
+            facebook.getUserInfo(data).then(function(response) {
+                console.warn(response);
+                if (response.id) {
+                    profile.btnText(response.first_name);
+                    profile.fbId(response.id);
+                    profile.name(response.name);
+                    profile.username(response.username);
+
+                    var user = {
+                        fbId: response.id,
+                        name: response.name,
+                        username: response.username
+                    };
+
+                    REST.getCurrentUser(user).then(function(answer) {
+                        console.warn('WELLCOME SCREEN or User Library', answer);
+                    });
+
+                } else {
+                    profile.btnText('Login');
+                }
+            });
         }
     }
 
@@ -58,18 +79,8 @@
 
         // FB.init({appId: '653741407981313', status: true, cookie: true, xfbml: true});
         FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
-
-        FB.getLoginStatus(function(data){
-            facebook.getUserInfo(data).then(function(response){
-                console.warn(response);
-                if (response.id) {
-                    user.btnText(response.first_name);
-                    user.id(response.id);
-                    user.username(response.username);
-                } else {
-                    user.btnText('Login');
-                }
-            });
+        FB.getLoginStatus(function(data) {
+            self.getCurrentUser(data);
         });
         
         return router.activate();
@@ -80,7 +91,7 @@
         router: router,
         sidebar: self.sidebar,
         login: self.login,
-        user: user
+        profile: profile
     };
 
 })

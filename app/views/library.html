@@ -8,7 +8,7 @@
 		<div class="ui secondary small button br-addbook file_upload">
 	  		Add Book
 	  		<!-- <button type="button">Add Book</button> -->
-	  		<input type="file" id="file"/>
+	  		<input type="file" id="file" data-bind="event: { change: addBook }"/>
 		</div>
 		<div>
 		<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>

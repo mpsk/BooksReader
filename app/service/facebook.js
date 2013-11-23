@@ -2,32 +2,6 @@ define([], function () {
     
     var facebook = {
 
-        user: {
-
-        },
-
-        loggedin: function() {
-            // показываем кнопку "выйти" и ставим на нее обработчик события
-            // $('#logout').css('display', 'block').click(function() {
-                FB.logout(function(response) {
-                    alert(1);
-                    // document.location.href = 'http://localhost:8081';
-                });
-            // });
-
-            // показываем информацию о пользователе
-            facebook.getUserInfo();
-        },
-
-        loggedout: function() {
-            // $('#login').css('display','block').click(function(){
-                FB.login(function(response){
-                    alert(2);
-                    // document.location.href = 'http://localhost:8081';
-                });
-            // });
-        },
-
         // эта функция добавляет в карточку интересы пользователя
         getUserLikes: function(id) {
             FB.api('/'+id+'/likes', function(response){
