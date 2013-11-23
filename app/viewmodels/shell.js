@@ -1,4 +1,4 @@
-﻿define(['plugins/router'], function (router) {
+﻿define(['plugins/router', 'service/facebook'], function (router, facebook) {
 
     var self = {
         sidebar: function(e, ev){
@@ -20,8 +20,23 @@
         },
 
         login: function(){
-            // FB registration and login
-
+            FB.login(function(response){
+                console.warn(response);
+            });
+            // facebook.loggedin();
+            // FB.getLoginStatus(function(response) {
+            //     console.warn(response);
+            //     if (response.session) {
+            //         facebook.loggedin(); // если да
+            //     } else {
+            //         facebook.loggedout(); // если нет
+            //     }
+            // });
+        },
+        logout: function(){
+            FB.logout(function(response){
+                console.warn(response);
+            });
         }
     }
 
@@ -32,6 +47,19 @@
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
+
+        // FB.init({appId: '653741407981313', status: true, cookie: true, xfbml: true});
+        FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
+
+        // Проверим вошел ли пользователь
+        // FB.getLoginStatus(function(response){
+        //     console.warn(response);
+        //    if (response.session) {
+        //        facebook.loggedin(); // если да
+        //    } else {
+        //        facebook.loggedout(); // если нет
+        //    }
+        // });
         
         return router.activate();
     }
