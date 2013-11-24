@@ -44,18 +44,6 @@
 
         },
 
-        translate: function() {
-             console.log( 'try translate '+ShowSelection() );
-           $.ajax({
-              url:"https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20131122T210759Z.34245b798456966b.bd525e7d279824e390146aed4b68eb514b238876&text=Better%20late%20than%20never&lang=ru",
-              success: function(data){
-                //var obj = jQuery.parseJSON(data);
-                //alert( data.text );
-                console.log( data.text );
-              }
-            });     
-         },
-
         getCurrentUser: function(data){
             facebook.getUserInfo(data).then(function(response) {
                 console.warn(response);
@@ -97,37 +85,14 @@
                 self.getCurrentUser(data);
             });
         });
-    }
-
-    function ShowSelection(){
-
-      var textComponent = document.getElementById('book_content');
-      var selectedText;
-      // IE version
-      if (document.selection != undefined)
-      {
-        textComponent.focus();
-        var sel = document.selection.createRange();
-        selectedText = sel.text;
-      }
-      // Mozilla version
-      else if (textComponent.selectionStart != undefined)
-      {
-        var startPos = textComponent.selectionStart;
-        var endPos = textComponent.selectionEnd;
-        selectedText = textComponent.value.substring(startPos, endPos)
-      }
-      return selectedText;
-    }
-     
+    }   
 
     return {
         activate: activate,
         router: router,
         sidebar: self.sidebar,
         login: self.login,
-        profile: profile,
-        ShowSelection: ShowSelection
+        profile: profile
     };
 
 })

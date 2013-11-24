@@ -1,4 +1,8 @@
-define(['durandal/app', 'durandal/system', 'service/rest', 'service/reader'], function (app, system, rest, reader) {
+define(['durandal/app', 
+		'durandal/system', 
+		'service/rest', 
+		'service/reader',
+		'service/translator'], function (app, system, rest, reader, translator) {
 
 	var REST = rest;
 	var books = ko.observableArray();
@@ -17,17 +21,24 @@ define(['durandal/app', 'durandal/system', 'service/rest', 'service/reader'], fu
 				console.warn(db);
 				books(JSON.stringify(db));
 			});
-	    }
+	    },
 
-	  
-   		
+		getSelectedText: function(vm, evt){
+			var text = $.selection();
+			if (text.length > 0) {
+				translator.translate(text).then(function(data){
+					console.warn(data);
+				});
+			}
+		}
 	    
 	};
 
     return {
         books: books,
         addBook: self.addBook,
-        getLibrary: self.getLibrary
+        getLibrary: self.getLibrary,
+        getSelectedText: self.getSelectedText
     };
 
 });

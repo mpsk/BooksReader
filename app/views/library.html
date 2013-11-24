@@ -7,18 +7,24 @@
 		</div>
 		<div class="ui secondary small button br-addbook file_upload">
 	  		Add Book
-	  		<!-- <button type="button">Add Book</button> -->
 	  		<input type="file" id="file" data-bind="event: { change: addBook }"/>
 		</div>
 		<div>
-		<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>
-		<!-- <input type="file" class="ui secondary small button br-addbook" id="file" value="Add Book" data-bind="click: getFile"/> -->
+			<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>
 		</div>
 	</div>
 
 	<div class="content">
 		<div data-bind="text: books"></div>
 	</div>
+
+	<div>
+		<span data-bind="event: {click: getSelectedText}">Test selection. Just select this text or one word.</span>
+	</div>
+
+	<textarea cols="30" rows="10" data-bind="event: {select: getSelectedText}">
+		Test selection. Just select this text or one word.
+	</textarea>
 </section>
 
 
