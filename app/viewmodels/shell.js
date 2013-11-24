@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'service/facebook', 'service/rest'], function (router, facebook, rest) {
+﻿define(['plugins/router', 'service/facebook', 'service/rest', 'service/user'], function (router, facebook, rest, user) {
 
     var REST = rest;
 
@@ -53,11 +53,15 @@
                     profile.name(response.name);
                     profile.username(response.username);
 
-                    var user = {
-                        fbId: response.id,
-                        name: response.name,
-                        username: response.username
-                    };
+                    // var user = {
+                    //     fbId: response.id,
+                    //     name: response.name,
+                    //     username: response.username
+                    // };
+
+                    user.name = response.name;
+                    user.fbId = response.id;
+                    user.username = response.username;
 
                     REST.getCurrentUser(user).then(function(answer) {
                         console.warn('WELLCOME SCREEN or User Library', answer);
