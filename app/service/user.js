@@ -1,12 +1,18 @@
 define([], function () {
     
+	/*
+	*	book = {name:'', size:''}
+	*	name - book.name
+	*	size - book.size in DB
+	*/
+
 	var user = {
 		id: '',
 		rev: '',
-		name: '',
 		fbId: '',
-        username: '',
-        books: []
+		name: ko.observable(),
+        username: ko.observable(),
+        books: ko.observableArray(),
 	};
 
     return user;

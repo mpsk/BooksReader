@@ -73,8 +73,18 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 						
 						user.id = result._id;
 						user.rev = result._rev;
-						
+
+						if (result._attachments) {
+							$.each(result._attachments, function(name, book){
+								user.books.push({
+									name: name,
+									size: book.length
+								});
+							});
+						}
+
 						dfd.resolve(result);
+
 					})
 					.fail(function(result){
 						console.warn('FAIL GET CURRENT USER INFO', result);
@@ -85,20 +95,77 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			return dfd.promise();
 		},
 
+		getFile: function(userId, book){
+			var dfd = $.Deferred();
+
+			http.get(DB.root+'/'+userId+'/'+book.name)
+				.done(function(data){
+					dfd.resolve(data);
+					// console.warn(data);
+				})
+				.fail(function(resp){
+					console.error('FAIL TO GET FILE', resp);
+				});
+
+			return dfd.promise();			
+		},
+
+		// update: function(user, data){
+		// 	$.ajax({
+		// 		url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
+		// 		type: 'PUT',
+		// 		dataType: "json",
+		// 		headers: {
+		// 			'Content-Type': type
+		// 		},
+		// 		data: [ko.toJSON(file)],
+		// 		complete: function(data){
+		// 			user.rev = data.responseJSON.rev;
+		// 			console.warn(data);
+		// 		}
+		// 	});
+		// },
+
 		loadBook: function(file){
-			console.warn(file, user);
+
+			console.warn(file);
+
+			var type = (function(){
+				if (file.type.length > 0) {
+					return file.type;
+				} else {
+					if (file.name.indexOf('.fb2') > 0) {
+						return 'application/octet-stream'
+					} 
+				}
+			})();
+
 
 			$.ajax({
 				url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
 				type: 'PUT',
-				data: [file],
 				dataType: "json",
-				contentType: file.type,
+				// headers: {
+				// 	'Content-Type': type
+				// },
+				data: [ko.toJSON(file)],
 				complete: function(data){
 					user.rev = data.responseJSON.rev;
 					console.warn(data);
 				}
 			});
+
+			// $.ajax({
+			// 	url: DB.root,
+			// 	type: 'POST',
+			// 	data: ko.toJSON(file),
+			// 	contentType: 'application/json',
+   //              dataType: 'json',
+			// 	complete: function(data){
+			// 		// user.rev = data.responseJSON.rev;
+			// 		console.warn(data);
+			// 	}
+			// });
 
 		},
 

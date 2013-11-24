@@ -48,6 +48,7 @@
             facebook.getUserInfo(data).then(function(response) {
                 console.warn(response);
                 if (response.id) {
+
                     profile.btnText(response.first_name);
                     profile.fbId(response.id);
                     profile.name(response.name);
@@ -59,9 +60,9 @@
                     //     username: response.username
                     // };
 
-                    user.name = response.name;
                     user.fbId = response.id;
-                    user.username = response.username;
+                    user.name(response.name);
+                    user.username(response.username);
 
                     REST.getCurrentUser(user).then(function(answer) {
                         console.warn('WELLCOME SCREEN or User Library', answer);

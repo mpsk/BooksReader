@@ -2,7 +2,8 @@ define(['durandal/app',
 		'durandal/system', 
 		'service/rest', 
 		'service/reader',
-		'service/translator'], function (app, system, rest, reader, translator) {
+		'service/translator',
+		'service/user'], function (app, system, rest, reader, translator, user) {
 
 	var REST = rest;
 	var books = ko.observableArray();
@@ -10,11 +11,8 @@ define(['durandal/app',
 	var self = {
 
 	    addBook: function(vm, evt){
-	    	console.warn(evt);
-	    	reader.getFile(evt).then(function(file){
-	    		console.warn(file);
-	    		REST.loadBook(file);
-	    	});
+	    	var file = reader.getInputFile(evt);
+	    	REST.loadBook(file);
 	    },
 
 	    getLibrary: function(){
@@ -22,6 +20,8 @@ define(['durandal/app',
 				console.warn(db);
 				books(JSON.stringify(db));
 			});
+
+			console.warn(user);
 	    },
 
 		getSelectedText: function(vm, evt){
@@ -31,6 +31,13 @@ define(['durandal/app',
 					console.warn(data);
 				});
 			}
+		},
+
+		getText: function(){
+			console.warn(this);
+			REST.getFile(user.id, this).then(function(text){
+				console.warn(text);
+			});
 		}
 	    
 	};
@@ -39,7 +46,9 @@ define(['durandal/app',
         books: books,
         addBook: self.addBook,
         getLibrary: self.getLibrary,
-        getSelectedText: self.getSelectedText
+        getSelectedText: self.getSelectedText,
+        user: user, // just for test here
+        getText: self.getText //
     };
 
 });

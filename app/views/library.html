@@ -25,6 +25,11 @@
 	<textarea cols="30" rows="10" data-bind="event: {select: getSelectedText}">
 		Test selection. Just select this text or one word.
 	</textarea>
+	
+	<b data-bind="text: user.username"></b>
+	<div data-bind="foreach: user.books">
+		<div data-bind="text: name, click: $root.getText"></div>
+	</div>
 </section>
 
 
