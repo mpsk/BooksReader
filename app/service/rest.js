@@ -1,10 +1,11 @@
-define(['durandal/system', 'plugins/http'], function (system, http) {
-   	
+define(['durandal/system', 'plugins/http', 'service/user'], function (system, http, user) {
+
    	var location = window.location;
 
 	var DB = {
 		root: 		'http://'+location.hostname+':5984/bookreader'	/* "http://localhost:5984/bookreader" */,
-		checkUser: 	'http://'+location.hostname+':5984/bookreader/_design/users/_view/all'
+		checkUser: 	'http://'+location.hostname+':5984/bookreader/_design/users/_view/all',
+		loadBook: 	'http://'+location.hostname+':5984/bookreader'
 	};
 
 	var rest = {
@@ -12,9 +13,17 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 		addUser: function(user){
 			var dfd = $.Deferred();
 
+			delete user.id;
+			delete user.rev;
+			delete user.__moduleId__;
+
 			http.post(DB.root, user)
 				.done(function(data){
 					console.warn('ADDED NEW USER', data);
+					
+					user.id = data.id;
+					user.rev = data.rev;
+					
 					dfd.resolve(data);
 				})
 				.fail(function(data){
@@ -58,7 +67,12 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 
 				http.get(DB.root+'/'+data.id)
 					.done(function(result){
+						var result = JSON.parse(result);
 						console.warn('GET CURRENT USER INFO', result);
+						
+						user.id = result._id;
+						user.rev = result._rev;
+						
 						dfd.resolve(result);
 					})
 					.fail(function(result){
@@ -68,6 +82,23 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 			});
 
 			return dfd.promise();
+		},
+
+		loadBook: function(file){
+			console.warn(file, user);
+
+			$.ajax({
+				url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
+				type: 'PUT',
+				data: [file],
+				dataType: "json",
+				contentType: file.type,
+				complete: function(data){
+					user.rev = data.responseJSON.rev;
+					console.warn(data);
+				}
+			});
+
 		},
 
 		root: function(){

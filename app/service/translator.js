@@ -15,9 +15,8 @@ define([], function () {
 					lang: 'ru',
 					format: 'plain'
 				},
-				complete: function(data){
-					var status = data.status;
-					
+				complete: function(data, status){
+
 					if (status === 200 || data.responseJSON) {
 						dfd.resolve(data.responseJSON.text[0]);
 					}
@@ -32,6 +31,7 @@ define([], function () {
 					}
 					else {
 						dfd.resolve("Переводчик не работает :)");
+						conole.error(data.responseJSON);
 					}
 				}
 			});
