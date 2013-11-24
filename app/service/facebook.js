@@ -47,7 +47,7 @@ define([], function () {
                     // $('#userinfo').html(facebook.makecard(0, 'https://graph.facebook.com/'+response.id+'/picture', response.name, response.id));
                     // facebook.getUserFriends(response.id);
                     // facebook.getUserLikes(response.id);
-                });
+                });               
             } else {
                 dfd.resolve(data);
             }

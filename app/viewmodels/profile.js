@@ -1,18 +1,24 @@
-define(['service/facebook'], function (facebook) {
+define(['service/user'], function (user) {
 
    
-    var profile = {
-        user_name: ko.observable(),
-        fbId: ko.observable()
-    };
+   var user_name = ko.observable('please login');
 
    
     function activate() {
+   	  var dfd = $.Deferred();
+
+   	   //dfd.resolve(response);
+      setTimeout(function(){
+ 			console.info(user.name);
+		user_name(user.name);
+      },100);
       
+   
     }   
 
     return {
-        activate: activate
+        activate: activate,
+        user_name: user_name
     };
 
 })

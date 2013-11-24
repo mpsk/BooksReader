@@ -5,7 +5,8 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 	var DB = {
 		root: 		'http://'+location.hostname+':5984/bookreader'	/* "http://localhost:5984/bookreader" */,
 		checkUser: 	'http://'+location.hostname+':5984/bookreader/_design/users/_view/all',
-		loadBook: 	'http://'+location.hostname+':5984/bookreader'
+		loadBook: 	'http://'+location.hostname+':5984/bookreader',
+		addWord: 	'http://'+location.hostname+':5984/bookreader'
 	};
 
 	var rest = {
@@ -114,6 +115,24 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 				});
 
 			return dfd.promise();
+		},
+
+		addWord: function(word){
+
+			var dfd = $.Deferred();
+			
+			http.post(DB.root, word)
+				.done(function(data){					
+					
+					console.log('word added');
+					dfd.resolve(data);
+				})
+				.fail(function(data){
+					dfd.reject();
+				});
+
+			return dfd.promise();
+
 		}
 	};
 
