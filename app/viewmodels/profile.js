@@ -1,24 +1,22 @@
-define(['service/user'], function (user) {
+define(['service/user'], function(user) {
 
-   
-   var user_name = ko.observable('please login');
+    // var user_name = ko.observable(user.name());
 
-   
-    function activate() {
-   	  var dfd = $.Deferred();
 
-   	   //dfd.resolve(response);
-      setTimeout(function(){
- 			console.info(user.name);
-		user_name(user.name);
-      },100);
-      
-   
-    }   
+    // function activate() {
+    //     var dfd = $.Deferred();
+
+    //     //dfd.resolve(response);
+    //     setTimeout(function() {
+    //         console.info(user.name());
+    //         user_name(user.name());
+    //     }, 2000);
+
+
+    // }
 
     return {
-        activate: activate,
-        user_name: user_name
+        // activate: activate,
+        nameName: user.name
     };
-
 })
