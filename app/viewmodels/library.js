@@ -11,8 +11,9 @@ define(['durandal/app',
 
 	    addBook: function(vm, evt){
 	    	console.warn(evt);
-	    	reader.getFile(evt).then(function(book){
-	    		console.warn(book);
+	    	reader.getFile(evt).then(function(file){
+	    		console.warn(file);
+	    		REST.loadBook(file);
 	    	});
 	    },
 
