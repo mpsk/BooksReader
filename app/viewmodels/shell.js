@@ -77,7 +77,8 @@
     function activate() {
 
         router.map([
-            { route: '', moduleId: 'viewmodels/library', title: 'Library' }
+            { route: '', moduleId: 'viewmodels/library', title: 'Library' },
+            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' }
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
