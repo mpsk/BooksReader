@@ -2,10 +2,8 @@ define(['service/facebook'], function (facebook) {
 
    
     var profile = {
-        fbId: ko.observable(),
-        username: ko.observable(),
-        name: ko.observable(),
-        btnText: ko.observable()
+        user_name: ko.observable(),
+        fbId: ko.observable()
     };
 
    
