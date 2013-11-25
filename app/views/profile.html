@@ -1,8 +1,11 @@
 <section>
     <div class="container">
-    	<p>User name: <span data-bind='text: nameName'></p>
-
-
+    	<!-- ko if: nameName!='' -->
+    	<p>User name: <span data-bind='text: nameName'></span></p>
+    	<!-- /ko -->
+		<!-- ko if: nameName=='' -->
+    	<p>Please login!</p>
+    	<!-- /ko -->
     	<div id='userinfo'></div>
     </div>	
 </section>    

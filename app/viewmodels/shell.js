@@ -34,6 +34,7 @@
                 FB.logout(function(data){
                     data.status === 'unknown' ? profile.btnText('Login') : 'WTF?'
                     profile.fbId('');
+                    user.name('');
                 });
 
             } else {
