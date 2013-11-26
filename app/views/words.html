@@ -1,9 +1,9 @@
 <section>
     <div class="container">
-    	<div>Book: <select data-bind="options: availableBooks"></select>
-            Search: <input type="text"  data-bind="value: filter, valueUpdate: 'afterkeydown'" />
-        </div>
-        <ul data-bind="foreach: filteredTeams">
+    	<p style='margin:10px'>Books: <select data-bind="options: availableBooks"></select>
+            Search word: <input type="text"  data-bind="value: filter, valueUpdate: 'afterkeydown'" />
+        </p>
+        <ul data-bind="foreach: filteredWords">
             <li>
                 <a href="#" data-bind="text: title, click: selectBook"></a>
             </li>
