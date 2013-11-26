@@ -80,7 +80,7 @@
 
         router.map([
             { route: '', moduleId: 'viewmodels/library', title: 'Library' },
-            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' }
+            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' },
             { route: 'words', moduleId: 'viewmodels/words', title: 'Words' }
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }

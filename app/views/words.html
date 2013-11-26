@@ -1,0 +1,12 @@
+<section>
+    <div class="container">
+    	<div>Book: <select data-bind="options: availableBooks"></select>
+            Search: <input type="text"  data-bind="value: filter, valueUpdate: 'afterkeydown'" />
+        </div>
+        <ul data-bind="foreach: filteredTeams">
+            <li>
+                <a href="#" data-bind="text: title, click: selectBook"></a>
+            </li>
+        </ul>
+    </div>	
+</section>    
