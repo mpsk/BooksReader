@@ -10,11 +10,11 @@
     };
 
     var self = {
-        sidebar: function(e, ev){
+        sidebar: function(vm, ev){
             var btn = ev.target;
+            var $sidebar = $('.sidebar.menu');
 
-            $('.sidebar.menu')
-                .sidebar({
+            $sidebar.sidebar({
                     overlay: true,
                     onShow: function(){
                         var height = $('.container .menu').height();
@@ -25,6 +25,7 @@
                         $(btn).closest('a').removeClass('active');  
                     }
                 })
+                .sidebar('attach events', '.sidebar a.item', 'toggle')
                 .sidebar('toggle');
         },
 
@@ -86,8 +87,7 @@
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
 
-        return router.activate().then(function(data){
-            // FB.init({appId: '653741407981313', status: true, cookie: true, xfbml: true});
+        return router.activate().then(function(){;
             FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
             FB.getLoginStatus(function(data) {
                 self.getCurrentUser(data);

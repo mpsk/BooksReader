@@ -110,21 +110,21 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			return dfd.promise();			
 		},
 
-		// update: function(user, data){
-		// 	$.ajax({
-		// 		url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
-		// 		type: 'PUT',
-		// 		dataType: "json",
-		// 		headers: {
-		// 			'Content-Type': type
-		// 		},
-		// 		data: [ko.toJSON(file)],
-		// 		complete: function(data){
-		// 			user.rev = data.responseJSON.rev;
-		// 			console.warn(data);
-		// 		}
-		// 	});
-		// },
+		updateUser: function(user, data){
+			$.ajax({
+				url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
+				type: 'PUT',
+				dataType: "json",
+				headers: {
+					'Content-Type': type
+				},
+				data: [ko.toJSON(file)],
+				complete: function(data){
+					user.rev = data.responseJSON.rev;
+					console.warn(data);
+				}
+			});
+		},
 
 		loadBook: function(file){
 
@@ -140,32 +140,9 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 				}
 			})();
 
-
-			$.ajax({
-				url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
-				type: 'PUT',
-				dataType: "json",
-				// headers: {
-				// 	'Content-Type': type
-				// },
-				data: [ko.toJSON(file)],
-				complete: function(data){
-					user.rev = data.responseJSON.rev;
-					console.warn(data);
-				}
-			});
-
-			// $.ajax({
-			// 	url: DB.root,
-			// 	type: 'POST',
-			// 	data: ko.toJSON(file),
-			// 	contentType: 'application/json',
-   //              dataType: 'json',
-			// 	complete: function(data){
-			// 		// user.rev = data.responseJSON.rev;
-			// 		console.warn(data);
-			// 	}
-			// });
+			var xhr = new XMLHttpRequest();
+			xhr.open('PUT', DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev);
+			xhr.send(file);
 
 		},
 

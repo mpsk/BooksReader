@@ -29,6 +29,7 @@ function (app, system, viewLocator, dataContext) {
     app.start().then(function(){
         viewLocator.useConvention();
         app.setRoot('viewmodels/shell');
+
     });
 
-})
+});
