@@ -80,8 +80,8 @@
 
         router.map([
             { route: '', moduleId: 'viewmodels/library', title: 'Library' },
-            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' },
-            { route: 'words', moduleId: 'viewmodels/words', title: 'Words' }
+            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' }/*,
+            { route: 'library', moduleId: 'viewmodels/library', title: 'Library' }*/
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
