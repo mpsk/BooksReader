@@ -2,10 +2,12 @@ define(['durandal/app',
 		'durandal/system', 
 		'service/rest', 
 		'service/reader',
-		'service/translator'], function (app, system, rest, reader, translator) {
+		'service/translator',
+                'service/user'], function (app, system, rest, reader, translator, user) {
 
 	var REST = rest;
 	var books = ko.observableArray();
+	var cur_book = "some_book";
 	
 	var self = {
 
@@ -28,7 +30,7 @@ define(['durandal/app',
 			if (text.length > 0) {
 				translator.translate(text).then(function(data){
 					console.warn(data);
-					REST.addWord({text, data, cur_book});
+					REST.addWord(text, data, cur_book);
 				});
 			}
 		},

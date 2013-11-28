@@ -161,11 +161,30 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			return dfd.promise();
 		},
 
-		addWord: function(word){
+		addWord: function(my_word, my_translate, my_book){
 
 			var dfd = $.Deferred();
 			
-			http.post(DB.root, word)
+			var id_="cbdfbc7fbb7093a233f9ac745d000f0d";
+			var rev_="1-ddf139631a16b6c291172f48ae47526f";
+			word = {
+				text: my_word,
+				translate: my_translate,
+				book: my_book
+			} 
+
+			$.ajax({
+				url: DB.root+'/'+id_+'?rev='+rev_,
+				type: 'PUT',
+				dataType: "json",				
+				data: ko.toJSON(word),
+				complete: function(data){
+					var rev_ = data.responseJSON.rev;
+					console.log(data);
+				}
+			});
+
+			/*http.post(DB.root, word)
 				.done(function(data){					
 					
 					console.log('word added');
@@ -173,7 +192,7 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 				})
 				.fail(function(data){
 					dfd.reject();
-				});
+				});*/
 
 			return dfd.promise();
 

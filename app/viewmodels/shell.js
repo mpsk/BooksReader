@@ -78,17 +78,15 @@
     }
 
     function activate() {
-
         router.map([
             { route: '', moduleId: 'viewmodels/library', title: 'Library' },
-            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' }/*,
-            { route: 'library', moduleId: 'viewmodels/library', title: 'Library' }*/
+            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' },
+             { route: 'words', moduleId: 'viewmodels/words', title: 'Words' }
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
         ]).buildNavigationModel();
-
-        return router.activate().then(function(){;
-            FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
+         return router.activate().then(function(){;
+           FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
             FB.getLoginStatus(function(data) {
                 self.getCurrentUser(data);
             });
