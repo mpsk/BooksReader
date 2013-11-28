@@ -3,7 +3,7 @@ define(['durandal/app',
 		'service/rest', 
 		'service/reader',
 		'service/translator',
-                'service/user'], function (app, system, rest, reader, translator, user) {
+        'service/user'], function (app, system, rest, reader, translator, user) {
 
 	var REST = rest;
 	var books = ko.observableArray();
@@ -13,7 +13,7 @@ define(['durandal/app',
 
 	    addBook: function(vm, evt){
 	    	var file = reader.getInputFile(evt);
-	    	REST.loadBook(file);
+	    	REST.uploadBook(file);
 	    },
 
 	    getLibrary: function(){
@@ -35,7 +35,7 @@ define(['durandal/app',
 			}
 		},
 
-		getText: function(){
+		getBookContent: function(){
 			console.warn(this);
 			REST.getFile(user.id, this).then(function(text){
 				console.warn(text);
@@ -50,7 +50,7 @@ define(['durandal/app',
         getLibrary: self.getLibrary,
         getSelectedText: self.getSelectedText,
         user: user, // just for test here
-        getText: self.getText //
+        getBookContent: self.getBookContent //
     };
 
 });
