@@ -1,4 +1,4 @@
-define(['durandal/system', 'plugins/http', 'service/user'], function (system, http, user) {
+define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'], function (system, http, user, bookStore) {
 
    	var location = window.location;
 
@@ -10,30 +10,6 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 	};
 
 	var rest = {
-
-		addUser: function(user){
-			var dfd = $.Deferred();
-
-			delete user.id;
-			delete user.rev;
-			delete user.__moduleId__;
-
-			http.post(DB.root, user)
-				.done(function(data){
-					console.warn('ADDED NEW USER', data);
-					
-					user.id = data.id;
-					user.rev = data.rev;
-					
-					dfd.resolve(data);
-				})
-				.fail(function(data){
-					console.warn('FAIL ADDED NEW USER', data);
-					dfd.reject(JSON.parse(data.responseText));
-				});
-
-			return dfd.promise();
-		},
 
 		checkForUser: function(user){
 			var dfd = $.Deferred();
@@ -60,6 +36,53 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			return dfd.promise();
 		},
 
+		addUser: function(user){
+			var dfd = $.Deferred();
+
+			delete user.id;
+			delete user.rev;
+			delete user.__moduleId__;
+
+			http.post(DB.root, user)
+				.done(function(data){
+					console.warn('ADDED NEW USER', data);
+					
+					user.id = data.id;
+					user.rev = data.rev;
+					
+					bookStore.id = data.id+'_books';
+
+					dfd.resolve(data);
+
+					rest.addUserBookStore(bookStore.id).then(function(resp) {
+						bookStore.rev = resp.rev;
+					});
+
+				})
+				.fail(function(data){
+					console.warn('FAIL ADDED NEW USER', data);
+					dfd.reject(JSON.parse(data.responseText));
+				});
+
+			return dfd.promise();
+		},
+
+		addUserBookStore: function(bookStoreId){
+			var dfd = $.Deferred();
+
+			$.ajax({
+				url: DB.root+'/'+bookStoreId,
+				type: 'PUT',
+				dataType: "json",
+				data:"{}",
+				complete: function(resp){
+					dfd.resolve(resp.responseJSON);
+				}
+			});
+
+			return dfd.promise();
+		},
+
 		getCurrentUser: function(user){
 			var dfd = $.Deferred();
 
@@ -75,6 +98,44 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 						user.rev = result._rev;
 						user.fbId = result.fbId;
 
+						bookStore.id = data.id+'_books';
+
+						// if (result._attachments) {
+						// 	$.each(result._attachments, function(name, book){
+						// 		user.books.push({
+						// 			name: name,
+						// 			size: book.length
+						// 		});
+						// 	});
+						// }
+
+						dfd.resolve(result);
+
+						rest.getCurrentUserBookStore(bookStore.id).then(function(resp){
+							console.warn(resp);
+						});
+
+					})
+					.fail(function(result){
+						console.warn('FAIL GET CURRENT USER INFO', result);
+					});
+
+			});
+
+			return dfd.promise();
+		},
+
+		getCurrentUserBookStore: function(bookStoreId){
+			var dfd = $.Deferred();
+
+			http.get(DB.root+'/'+bookStoreId)
+					.done(function(result){
+						var result = JSON.parse(result);
+						console.warn('GET CURRENT USER BOOKSTORE INFO', result);
+
+						bookStore.id = result._id;
+						bookStore.rev = result._rev;
+
 						if (result._attachments) {
 							$.each(result._attachments, function(name, book){
 								user.books.push({
@@ -88,10 +149,8 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 
 					})
 					.fail(function(result){
-						console.warn('FAIL GET CURRENT USER INFO', result);
+						console.warn('FAIL GET CURRENT USER BOOKSTORE INFO', result);
 					});
-
-			});
 
 			return dfd.promise();
 		},
@@ -99,7 +158,7 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 		getFile: function(userId, book){
 			var dfd = $.Deferred();
 
-			http.get(DB.root+'/'+userId+'/'+book.name)
+			http.get(DB.root+'/'+userId+'_books/'+book.name)
 				.done(function(data){
 					dfd.resolve(data);
 					// console.warn(data);
@@ -116,9 +175,6 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 				url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
 				type: 'PUT',
 				dataType: "json",
-				headers: {
-					'Content-Type': type
-				},
 				data: [ko.toJSON(file)],
 				complete: function(data){
 					user.rev = data.responseJSON.rev;
@@ -127,9 +183,9 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			});
 		},
 
-		loadBook: function(file){
+		uploadBook: function(file){
 
-			console.warn(file);
+			console.warn(bookStore);
 
 			var type = (function(){
 				if (file.type.length > 0) {
@@ -142,7 +198,15 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			})();
 
 			var xhr = new XMLHttpRequest();
-			xhr.open('PUT', DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev);
+
+			xhr.open('PUT', DB.root+'/'+bookStore.id+'/'+file.name+'?rev='+bookStore.rev);
+			xhr.onload = function(data){
+				var result = JSON.parse(data.target.response);
+				bookStore.rev = result.rev;
+			};
+			xhr.onerror  = function(data){
+				console.warn(data);
+			};
 			xhr.send(file);
 
 		},
