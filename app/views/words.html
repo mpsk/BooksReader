@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-    	<p style='margin:10px'>Books: <select data-bind="options: availableBooks"></select>
+    	<p style='margin:10px'>Books: <select data-bind="options: user.books"></select>
             Search word: <input type="text"  data-bind="value: filter, valueUpdate: 'afterkeydown'" />
         </p>
         <ul data-bind="foreach: filteredWords">

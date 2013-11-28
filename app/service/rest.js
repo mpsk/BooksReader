@@ -168,51 +168,35 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 			
 			//var id_="cbdfbc7fbb7093a233f9ac745d000f0d";
 			//var rev_="1-ddf139631a16b6c291172f48ae47526f";
+
+			console.log(user);
 			var word1 = {
 				text: my_word,
 				translate: my_translate,
 				book: my_book
 			};
+			user.words.push(word1);
 			var updated_user = {
 				id: user.id,
-				//rev: user.rev,
 				fbId: user.fbId,
 				name: user.name,
-		        books: [],
-		        words: [word1]
+		        books: user.books,
+		        words: user.words
 			};
-			
+			console.log( ko.toJSON(updated_user) );			
+
 			$.ajax({
 				url: DB.root+'/'+user.id+'?rev='+user.rev,
 				type: 'PUT',
 				dataType: "json",				
 				data: ko.toJSON(updated_user),
 				complete: function(data){
-					var rev_ = data.responseJSON.rev;
+					user.rev = data.responseJSON.rev;
+					//user.books = data.responseJSON.books;
+					//user.words = data.responseJSON.words;
 					console.log(data);
 				}
-			});
-
-			/*$.ajax({
-				url: DB.root+'/'+id_+'?rev='+rev_,
-				type: 'PUT',
-				dataType: "json",				
-				data: ko.toJSON(word),
-				complete: function(data){
-					var rev_ = data.responseJSON.rev;
-					console.log(data);
-				}
-			});*/
-
-			/*http.post(DB.root, word)
-				.done(function(data){					
-					
-					console.log('word added');
-					dfd.resolve(data);
-				})
-				.fail(function(data){
-					dfd.reject();
-				});*/
+			});			
 
 			return dfd.promise();
 

@@ -12,7 +12,8 @@ define([], function () {
 		fbId: '',
 		name: ko.observable(),
         username: ko.observable(''),
-        books: ko.observableArray(),
+        books: ko.observableArray([]),
+        words: []
 	};
 
     return user;
