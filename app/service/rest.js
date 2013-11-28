@@ -73,6 +73,7 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 						
 						user.id = result._id;
 						user.rev = result._rev;
+						user.fbId = result.fbId;
 
 						if (result._attachments) {
 							$.each(result._attachments, function(name, book){
@@ -165,15 +166,34 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 
 			var dfd = $.Deferred();
 			
-			var id_="cbdfbc7fbb7093a233f9ac745d000f0d";
-			var rev_="1-ddf139631a16b6c291172f48ae47526f";
-			word = {
+			//var id_="cbdfbc7fbb7093a233f9ac745d000f0d";
+			//var rev_="1-ddf139631a16b6c291172f48ae47526f";
+			var word1 = {
 				text: my_word,
 				translate: my_translate,
 				book: my_book
-			} 
-
+			};
+			var updated_user = {
+				id: user.id,
+				//rev: user.rev,
+				fbId: user.fbId,
+				name: user.name,
+		        books: [],
+		        words: [word1]
+			};
+			
 			$.ajax({
+				url: DB.root+'/'+user.id+'?rev='+user.rev,
+				type: 'PUT',
+				dataType: "json",				
+				data: ko.toJSON(updated_user),
+				complete: function(data){
+					var rev_ = data.responseJSON.rev;
+					console.log(data);
+				}
+			});
+
+			/*$.ajax({
 				url: DB.root+'/'+id_+'?rev='+rev_,
 				type: 'PUT',
 				dataType: "json",				
@@ -182,7 +202,7 @@ define(['durandal/system', 'plugins/http', 'service/user'], function (system, ht
 					var rev_ = data.responseJSON.rev;
 					console.log(data);
 				}
-			});
+			});*/
 
 			/*http.post(DB.root, word)
 				.done(function(data){					
