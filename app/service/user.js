@@ -13,7 +13,9 @@ define([], function () {
 		name: ko.observable(),
         username: ko.observable(''),
         books: ko.observableArray([]),
-        words: []
+        books_count: 1,
+        words: [],
+        words_count: 2
 	};
 
     return user;
