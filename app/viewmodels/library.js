@@ -3,7 +3,8 @@ define(['durandal/app',
 		'service/rest', 
 		'service/reader',
 		'service/translator',
-        'service/user'], function (app, system, rest, reader, translator, user) {
+        'service/user',
+        'service/bookStore'], function (app, system, rest, reader, translator, user, bookStore) {
 
 	var REST = rest;
 	var books = ko.observableArray();
@@ -13,7 +14,9 @@ define(['durandal/app',
 
 	    addBook: function(vm, evt){
 	    	var file = reader.getInputFile(evt);
-	    	REST.uploadBook(file);
+	    	REST.uploadBook(file).then(function(response){
+	    		console.warn(response);
+	    	});
 	    },
 
 	    getLibrary: function(){
@@ -45,7 +48,6 @@ define(['durandal/app',
 	};
 
     return {
-        books: books,
         addBook: self.addBook,
         getLibrary: self.getLibrary,
         getSelectedText: self.getSelectedText,

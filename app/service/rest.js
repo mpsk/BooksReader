@@ -1,12 +1,13 @@
-define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'], function (system, http, user, bookStore) {
+define(['durandal/system', 
+		'plugins/http', 
+		'service/user', 
+		'service/bookStore'], function (system, http, user, bookStore) {
 
    	var location = window.location;
 
 	var DB = {
 		root: 		'http://'+location.hostname+':5984/bookreader'	/* "http://localhost:5984/bookreader" */,
-		checkUser: 	'http://'+location.hostname+':5984/bookreader/_design/users/_view/all',
-		loadBook: 	'http://'+location.hostname+':5984/bookreader',
-		addWord: 	'http://'+location.hostname+':5984/bookreader'
+		checkUser: 	'http://'+location.hostname+':5984/bookreader/_design/users/_view/all'
 	};
 
 	var rest = {
@@ -97,23 +98,15 @@ define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'],
 						user.id = result._id;
 						user.rev = result._rev;
 						user.fbId = result.fbId;
+						user.words(result.words || []);
 
 						bookStore.id = data.id+'_books';
 
-						// if (result._attachments) {
-						// 	$.each(result._attachments, function(name, book){
-						// 		user.books.push({
-						// 			name: name,
-						// 			size: book.length
-						// 		});
-						// 	});
-						// }
+						rest.getCurrentUserBookStore(bookStore.id).then(function(resp){
+							user.books(resp || []);
+						});
 
 						dfd.resolve(result);
-
-						rest.getCurrentUserBookStore(bookStore.id).then(function(resp){
-							console.warn(resp);
-						});
 
 					})
 					.fail(function(result){
@@ -136,16 +129,17 @@ define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'],
 						bookStore.id = result._id;
 						bookStore.rev = result._rev;
 
+						var books = [];
 						if (result._attachments) {
 							$.each(result._attachments, function(name, book){
-								user.books.push({
+								books.push({
 									name: name,
 									size: book.length
 								});
 							});
 						}
 
-						dfd.resolve(result);
+						dfd.resolve(books);
 
 					})
 					.fail(function(result){
@@ -170,23 +164,27 @@ define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'],
 			return dfd.promise();			
 		},
 
-		updateUser: function(user, data){
+		// TODO: Need to use one request to update any user info
+		updateUser: function(user){
+
+			delete user.__moduleId__;
+
 			$.ajax({
-				url: DB.root+'/'+user.id+'/'+file.name+'?rev='+user.rev,
+				url: DB.root+'/'+user.id+'?rev='+user.rev,
 				type: 'PUT',
 				dataType: "json",
-				data: [ko.toJSON(file)],
+				data: ko.toJSON(user),
 				complete: function(data){
-					user.rev = data.responseJSON.rev;
 					console.warn(data);
+					if (data.responseJSON.ok) {
+						user.rev = data.responseJSON.rev;
+					}
 				}
 			});
 		},
 
 		uploadBook: function(file){
-
-			console.warn(bookStore);
-
+			var dfd = $.Deferred();
 			var type = (function(){
 				if (file.type.length > 0) {
 					return file.type;
@@ -203,11 +201,23 @@ define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'],
 			xhr.onload = function(data){
 				var result = JSON.parse(data.target.response);
 				bookStore.rev = result.rev;
+
+				user.books.push({
+					name: file.name,
+					size: file.size
+				});
+
+				rest.updateUser(user);
+				dfd.resolve(result);
+
 			};
 			xhr.onerror  = function(data){
 				console.warn(data);
+				dfd.reject(data);
 			};
 			xhr.send(file);
+
+			return dfd.promise();
 
 		},
 
@@ -228,41 +238,45 @@ define(['durandal/system', 'plugins/http', 'service/user', 'service/bookStore'],
 
 		addWord: function(my_word, my_translate, my_book){
 
-			var dfd = $.Deferred();
+			// var dfd = $.Deferred();
 			
 			//var id_="cbdfbc7fbb7093a233f9ac745d000f0d";
 			//var rev_="1-ddf139631a16b6c291172f48ae47526f";
 
+			delete user.__moduleId__;
+
 			console.log(user);
-			var word1 = {
+			var word = {
 				text: my_word,
 				translate: my_translate,
 				book: my_book
 			};
-			user.words.push(word1);
-			var updated_user = {
-				id: user.id,
-				fbId: user.fbId,
-				name: user.name,
-		        books: user.books,
-		        words: user.words
-			};
-			console.log( ko.toJSON(updated_user) );			
+			user.words.push(word);
+			rest.updateUser(user);
+			// var updated_user = {
+			// 	id: user.id,
+			// 	fbId: user.fbId,
+			// 	name: user.name,
+		 //        books: user.books,
+		 //        words: user.words
+			// };
 
-			$.ajax({
-				url: DB.root+'/'+user.id+'?rev='+user.rev,
-				type: 'PUT',
-				dataType: "json",				
-				data: ko.toJSON(updated_user),
-				complete: function(data){
-					user.rev = data.responseJSON.rev;
-					//user.books = data.responseJSON.books;
-					//user.words = data.responseJSON.words;
-					console.log(data);
-				}
-			});			
+			// console.log( ko.toJSON(updated_user) );			
 
-			return dfd.promise();
+			// $.ajax({
+			// 	url: DB.root+'/'+user.id+'?rev='+user.rev,
+			// 	type: 'PUT',
+			// 	dataType: "json",				
+			// 	data: ko.toJSON(user),
+			// 	complete: function(data){
+			// 		user.rev = data.responseJSON.rev;
+			// 		//user.books = data.responseJSON.books;
+			// 		//user.words = data.responseJSON.words;
+			// 		console.log(data, user);
+			// 	}
+			// });			
+
+			// return dfd.promise();
 
 		}
 	};

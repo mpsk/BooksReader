@@ -13,18 +13,14 @@
 			<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>
 		</div>
 	</div>
-
+<!-- 
 	<div class="content">
 		<div data-bind="text: books"></div>
-	</div>
+	</div> -->
 
 	<div>
 		<span data-bind="event: {click: getSelectedText}">Test selection. Just select this text or one word.</span>
 	</div>
-
-	<textarea cols="30" rows="10" data-bind="event: {select: getSelectedText}">
-		Test selection. Just select this text or one word.
-	</textarea>
 	
 	<b data-bind="text: user.username"></b>
 	<div data-bind="foreach: user.books">
