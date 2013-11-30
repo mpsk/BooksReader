@@ -1,7 +1,8 @@
 define(['durandal/system', 
-		'plugins/http', 
+		'plugins/http',
+		'service/reader',
 		'service/user', 
-		'service/bookStore'], function (system, http, user, bookStore) {
+		'service/bookStore'], function (system, http, reader, user, bookStore) {
 
    	var location = window.location;
 
@@ -99,11 +100,12 @@ define(['durandal/system',
 						user.rev = result._rev;
 						user.fbId = result.fbId;
 						user.words(result.words || []);
+						user.books(result.books || []);
 
 						bookStore.id = data.id+'_books';
-
+						
 						rest.getCurrentUserBookStore(bookStore.id).then(function(resp){
-							user.books(resp || []);
+							// user.books(resp || []);
 						});
 				
 
@@ -196,7 +198,14 @@ define(['durandal/system',
 				}
 			})();
 
+			var cover = '';
+			FileAPI.readAsBinaryString(file, function(e) {
+				cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
+			});
+
 			var xhr = new XMLHttpRequest();
+
+			console.warn(bookStore);
 
 			xhr.open('PUT', DB.root+'/'+bookStore.id+'/'+file.name+'?rev='+bookStore.rev);
 			xhr.onload = function(data){
@@ -205,7 +214,8 @@ define(['durandal/system',
 
 				user.books.push({
 					name: file.name,
-					size: file.size
+					size: file.size,
+					cover: cover
 				});
 
 				rest.updateUser(user);

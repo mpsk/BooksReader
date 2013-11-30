@@ -9,7 +9,7 @@ define(['durandal/app',
 	var REST = rest;
 	var books = ko.observableArray();
 	var cur_book = "some_book";
-	
+
 	var self = {
 
 	    addBook: function(vm, evt){
@@ -20,10 +20,10 @@ define(['durandal/app',
 	    },
 
 	    getLibrary: function(){
-			REST.root().then(function(db) {
-				console.warn(db);
-				books(JSON.stringify(db));
-			});
+			// REST.root().then(function(db) {
+			// 	console.warn(db);
+			// 	books(JSON.stringify(db));
+			// });
 
 			console.warn(user);
 	    },
@@ -38,9 +38,11 @@ define(['durandal/app',
 			}
 		},
 
-		getBookContent: function(){
-			console.warn(this);
+		getBookContent: function(vm, e){
+			console.warn(this, e)
+
 			REST.getFile(user.id, this).then(function(text){
+
 				console.warn(text);
 			});
 		}
