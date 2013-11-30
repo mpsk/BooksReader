@@ -105,6 +105,7 @@ define(['durandal/system',
 						rest.getCurrentUserBookStore(bookStore.id).then(function(resp){
 							user.books(resp || []);
 						});
+				
 
 						dfd.resolve(result);
 
@@ -260,25 +261,29 @@ define(['durandal/system',
 		 //        books: user.books,
 		 //        words: user.words
 			// };
+		}/*,
+		getWords: function(bookStoreId){
+			var dfd = $.Deferred();
 
-			// console.log( ko.toJSON(updated_user) );			
+			http.get(DB.root)
+					.done(function(result){
+						var result = JSON.parse(result);
+						console.log('GET WORDS', result);
+						//bookStore.id = result._id;
+						//bookStore.rev = result._rev;
+						
+						var words = [];
+						
 
-			// $.ajax({
-			// 	url: DB.root+'/'+user.id+'?rev='+user.rev,
-			// 	type: 'PUT',
-			// 	dataType: "json",				
-			// 	data: ko.toJSON(user),
-			// 	complete: function(data){
-			// 		user.rev = data.responseJSON.rev;
-			// 		//user.books = data.responseJSON.books;
-			// 		//user.words = data.responseJSON.words;
-			// 		console.log(data, user);
-			// 	}
-			// });			
+						dfd.resolve(words);
 
-			// return dfd.promise();
+					})
+					.fail(function(result){
+						console.warn('FAIL GET WORDS', result);
+					});
 
-		}
+			return dfd.promise();
+		},*/
 	};
 
 	return rest;
