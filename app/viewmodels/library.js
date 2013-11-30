@@ -39,8 +39,6 @@ define(['durandal/app',
 		},
 
 		getBookContent: function(vm, e){
-			console.warn(this, e)
-
 			REST.getFile(user.id, this).then(function(text){
 
 				console.warn(text);

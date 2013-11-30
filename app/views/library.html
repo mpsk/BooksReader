@@ -5,12 +5,12 @@
 	  		<input type="text" placeholder="Search Books...">
 	  		<i class="search icon"></i>
 		</div>
-		<div class="ui secondary small button br-addbook file_upload">
+		<div class="ui positive small button br-addbook file_upload">
 	  		Add Book
 	  		<input type="file" id="file" data-bind="event: { change: addBook }"/>
 		</div>
 		<div>
-			<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>
+			<div class="ui positive small button" data-bind="click: getLibrary">GetLibraryTest</div>
 		</div>
 	</div>
 
@@ -18,17 +18,74 @@
 		<span data-bind="event: {click: getSelectedText}">Test selection. Just select this text or one word.</span>
 	</div>
 	
-	<b data-bind="text: user.username"></b>
-	<div data-bind="foreach: user.books">
-		<div data-bind="text: name, click: $root.getBookContent"></div>
-		<img data-bind="attr: {src: cover}">
+	<div class="booklist" data-bind="foreach: user.books">
+		<div class="item">
+			<center>
+				<div class="cover">
+					<img data-bind="attr: {src: cover}">
+				</div>
+			</center>
+			<div class="title" data-bind="text: title"></div>
+			<div class="author" data-bind="text: author"></div>
+			<div class="btns">
+				<div class="ui positive mini button" data-bind="click: $root.getBookContent">
+					<i class="info icon"></i>
+				</div>
+				<div class="ui positive mini button" data-bind="click: $root.getBookContent">Read</div>
+			</div>
+		</div>
 	</div>
 
-	<div id='text'></div>
 </section>
 
 
 <style>
+
+.library .booklist{
+	/*border: 1px solid red;*/
+	padding: 10px;
+}
+
+.library .booklist img {
+	height: 150px;
+	display: inline;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.library .booklist .item {
+	/*border: 1px solid green;*/
+	padding: 10px;
+	width: 150px;
+	height: 235px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.library .booklist .item i.icon{
+	margin: 0;
+}
+
+.library .booklist .btns,
+.library .booklist .title,
+.library .booklist .author {
+	text-align: center;
+}
+
+.library .booklist .title,
+.library .booklist .author {
+	font-size: 0.8em;
+	/*padding-top: 5px;*/
+	padding-bottom: 5px;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	/*line-height: 1em;*/
+   	max-height: 2.5em;
+   	/*-webkit-line-clamp: 2;*/
+   	/*-webkit-box-orient: vertical;*/
+}
+
 
 .file_upload{
 	cursor: pointer;
