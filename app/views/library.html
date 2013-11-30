@@ -13,10 +13,6 @@
 			<div class="ui secondary small button" data-bind="click: getLibrary">GetLibraryTest</div>
 		</div>
 	</div>
-<!-- 
-	<div class="content">
-		<div data-bind="text: books"></div>
-	</div> -->
 
 	<div>
 		<span data-bind="event: {click: getSelectedText}">Test selection. Just select this text or one word.</span>
@@ -25,7 +21,10 @@
 	<b data-bind="text: user.username"></b>
 	<div data-bind="foreach: user.books">
 		<div data-bind="text: name, click: $root.getBookContent"></div>
+		<img data-bind="attr: {src: cover}">
 	</div>
+
+	<div id='text'></div>
 </section>
 
 
