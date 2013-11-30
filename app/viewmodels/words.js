@@ -1,19 +1,24 @@
-define(['durandal/system', 'service/user'], function(system, user) {
+define(['service/user'], function(user) {
 
-    var selectBook = ko.observable();
+	var self = {
+		selectBook: ko.observable('sdgs');
+    filter: ko.observable();
+	}
+    
     //var availableBooks = ko.observableArray( user.books );
-    var availableWords = ko.observableArray( ['123123'] );
-    var filter = ko.observable();
+   /* var availableWords = ko.observableArray( ['sfhdfxg123123','asfasf'] );
+   
 
     var filteredWords = ko.computed(function () {
         return ko.utils.arrayFilter(availableWords(), function (words1) {
-        	//var result = words1.indexOf(filter()) != -1 || !self.filter();       
-            //return result;
+        	var result = words1.indexOf(filter()) != -1 || !filter();       
+            return result;
         });
-      });
+      });*/
 
     return {
-       selectBook: selectBook,
-       filter: filter
+       selectBook: self.selectBook,
+       filter: filter/*,
+       filteredWords: filteredWords*/
     };
 })
