@@ -1,7 +1,7 @@
 <section>
     <div class="container" style="padding:15px;">
-    	<p style='margin:10px'>Books: <select ata-bind="options: books.title"></select>
-            Search word: <input type="text"  ata-bind="value: filter, valueUpdate: 'afterkeydown'" onclick="alert(selectBook);"/>
+    	<p style='margin:10px'>Books: <select data-bind="options: books, optionsText: 'name', value: selectedBookName, optionsCaption: 'All'"></select>
+            Search word: <input type="text"  data-bind="value: filter, valueUpdate: 'afterkeydown'" />
         </p><!--
         <ul ata-bind="foreach: filteredWords">
             <li>
@@ -10,21 +10,21 @@
         </ul>-->        
         
 
-            <table >
+            <table border='1px'>
                 <thead>
                     <tr><th>Word</th><th>Translate</th><th colspan=2>Book</th></tr>
                 </thead>
                 <tbody data-bind="foreach: words">
-                    <tr >
-                        <td data-bind="text: text"></td>
-                        <td data-bind="text: translate"></td>
+                    <tr width='600px'>
+                        <td data-bind="text: text" width='250px'></td>
+                        <td data-bind="text: translate" width='250px'></td>
                         <td data-bind="text: book"></td>
-                        <td><a href='#'>X</a></td>
+                        <td><button type="button" class="close" data-bind="click: $parent.deleteWord">&times;</button></td>
                     </tr>
-                </tbody>
+                </tbody>                
             </table>
 
           <br>   
-       <span data-bind='text: selectedBook'></span>
+       <span data-bind='text: filter'></span>
     </div>	
 </section>    
