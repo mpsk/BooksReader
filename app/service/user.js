@@ -10,11 +10,11 @@ define([], function () {
 		id: '',
 		rev: '',
 		fbId: '',
-		name: ko.observable(),
+		name: ko.observable(''),
         username: ko.observable(''),
         books: ko.observableArray([]),
         books_count: 1,
-        words: [],
+        words: ko.observableArray([])
         words_count: 2
 	};
 
