@@ -46,7 +46,7 @@ document-info {
 	display: none;
 }
 
-genre, author, publish-info, lang {
+genre, author, publish-info, lang, empty-line {
 	display: block;
 }
 
