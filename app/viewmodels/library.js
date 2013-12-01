@@ -30,11 +30,15 @@ define(['durandal/app',
 			}
 		},
 
-<<<<<<< HEAD
+
 		getBookContent: function(vm, e){
-			console.warn(this, e)
+			console.warn(this, e);
 			user.curBookName = this.name;
-=======
+			REST.getFile(user.id, this).then(function(text){
+				console.warn(text);
+			});
+
+		},
 		getBookPreview: function(vm, e){
 			var that = this;
 			REST.getFile(user.id, this).then(function(text){
@@ -43,15 +47,16 @@ define(['durandal/app',
 				// dialog.show(vm, 'Title', 'desciption');
 				// dialog.show('message', 'title', 'options');
 			});
-		},
+		}/*,
 
 		getBookContent: function(vm, e){
->>>>>>> 0eb6204554084469dc81561ce13b4589c32e0c07
+			console.warn(this, e)
+			user.curBookName = this.name;
 			REST.getFile(user.id, this).then(function(text){
 
 				console.warn(text);
 			});
-		}
+		}*/
 	    
 	};
 
