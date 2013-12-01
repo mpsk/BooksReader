@@ -155,7 +155,9 @@ define(['durandal/system',
 		getFile: function(userId, book){
 			var dfd = $.Deferred();
 
-			http.get(DB.root+'/'+userId+'_books/'+book.name)
+			var bookName = book.name || book;
+
+			http.get(DB.root+'/'+userId+'_books/'+bookName)
 				.done(function(data){
 					dfd.resolve(data);
 					// console.warn(data);

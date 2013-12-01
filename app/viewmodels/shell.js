@@ -64,12 +64,6 @@
                     profile.name(response.name);
                     profile.username(response.username);
 
-                    // var user = {
-                    //     fbId: response.id,
-                    //     name: response.name,
-                    //     username: response.username
-                    // };
-
                     user.fbId = response.id;
                     user.name(response.name);
                     user.username(response.username);
@@ -87,11 +81,14 @@
 
     function activate() {
         router.map([
-            { route: '', moduleId: 'viewmodels/library', title: 'Library' },
-            { route: 'profile', moduleId: 'viewmodels/profile', title: 'Profile' },
-             { route: 'words', moduleId: 'viewmodels/words', title: 'Words' }
+            { route: '',            moduleId: 'viewmodels/library',     title: 'Library' },
+            { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
+            { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
+            { route: 'book/:id',    moduleId: 'viewmodels/book',    title: 'Reading' }
+
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
+
         ]).buildNavigationModel();
          return router.activate().then(function(){;
            FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});

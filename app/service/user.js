@@ -1,10 +1,4 @@
 define([], function () {
-    
-	/*
-	*	book = {name:'', size:''}
-	*	name - book.name
-	*	size - book.size in DB
-	*/
 
 	var user = {
 		id: '',
@@ -14,8 +8,9 @@ define([], function () {
         username: ko.observable(''),
         books: ko.observableArray([]),
         words: ko.observableArray([]),
-        curBookName: ''       
-	};
+        // FIXME:Should not be here (current book name);
+        curBookName: ''
+    }
 
     return user;
 });

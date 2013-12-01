@@ -1,11 +1,9 @@
-define(['durandal/app', 
-		'durandal/system',
-		'plugins/dialog', 
+define(['plugins/dialog', 
 		'service/rest', 
 		'service/reader',
 		'service/translator',
         'service/user',
-        'service/bookStore'], function (app, system, dialog, rest, reader, translator, user, bookStore) {
+        'service/bookStore'], function (dialog, rest, reader, translator, user, bookStore) {
 
 	var REST = rest;
 	var books = ko.observableArray();
@@ -44,21 +42,8 @@ define(['durandal/app',
 				var preview = reader.getBookPreview(text);
 				dialog.showMessage(preview, that.title);
 			});
-		}/*,
-
-		getBookContent: function(vm, e){
-			console.warn(this, e)
-			user.curBookName = this.name;
-<<<<<<< HEAD
-=======
-
->>>>>>> a49fc21606a75799a0ed889e855eee49c3cd121e
-			REST.getFile(user.id, this).then(function(text){
-
-				console.warn(text);
-			});
-		}*/
-	    
+		}
+		
 	};
 
     return {
