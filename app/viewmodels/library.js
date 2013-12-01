@@ -30,11 +30,6 @@ define(['durandal/app',
 			}
 		},
 
-<<<<<<< HEAD
-		getBookContent: function(vm, e){
-			console.warn(this, e)
-			user.curBookName = this.name;
-=======
 		getBookPreview: function(vm, e){
 			var that = this;
 			REST.getFile(user.id, this).then(function(text){
@@ -44,7 +39,9 @@ define(['durandal/app',
 		},
 
 		getBookContent: function(vm, e){
->>>>>>> 0eb6204554084469dc81561ce13b4589c32e0c07
+			console.warn(this, e)
+			user.curBookName = this.name;
+
 			REST.getFile(user.id, this).then(function(text){
 
 				console.warn(text);
