@@ -1,7 +1,7 @@
 define(['service/user'], function(user) {
 
     var self = {
-           selectedBookName: ko.observable(''),
+           selectedBookName: ko.observable('erg'),
       filter: ko.observable(''),
       filteredWords: ko.computed(function () {
           alert(user.words() );
