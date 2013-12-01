@@ -18,7 +18,7 @@ define(['service/user'], function(user) {
     return {
         // activate: activate,
         nameName: user.name,
-        books_count: user.books_count,
-        words_count: user.words_count
+        books_count: user.books.length,
+        words_count: user.words.length
     };
 })

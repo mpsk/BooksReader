@@ -1,8 +1,8 @@
 define(['service/user'], function(user) {
 
-	var self = {
-		selectedBookName: ko.observable(''),
-    filter: ko.observable('6'),
+        var self = {
+                selectedBookName: ko.observable(''),
+    filter: ko.observable(''),
     filteredWords: ko.computed(function () {
        return ko.utils.arrayFilter(user.words, function (words1) {
           console.log(words1);
@@ -13,7 +13,7 @@ define(['service/user'], function(user) {
     deleteWord: function(text){
     
     }
-	}
+        }
     
    
 

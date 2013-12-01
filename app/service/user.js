@@ -13,7 +13,8 @@ define([], function () {
 		name: ko.observable(''),
         username: ko.observable(''),
         books: ko.observableArray([]),
-        words: ko.observableArray([])        
+        words: ko.observableArray([]),
+        curBookName: ''       
 	};
 
     return user;

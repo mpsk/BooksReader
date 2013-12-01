@@ -33,14 +33,14 @@ define(['durandal/app',
 			if (text.length > 0) {
 				translator.translate(text).then(function(data){
 					console.warn(data);
-					REST.addWord(text, data, cur_book);
+					REST.addWord(text, data, user.curBookName);
 				});
 			}
 		},
 
 		getBookContent: function(vm, e){
 			console.warn(this, e)
-
+			user.curBookName = this.name;
 			REST.getFile(user.id, this).then(function(text){
 
 				console.warn(text);

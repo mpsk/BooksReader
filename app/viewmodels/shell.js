@@ -6,7 +6,8 @@
         fbId: ko.observable(),
         username: ko.observable(),
         name: ko.observable(),
-        btnText: ko.observable()
+        btnText: ko.observable(),
+        txtLogin: ko.observable()
     };
 
     var self = {
@@ -33,7 +34,13 @@
 
             if (profile.fbId()) {
                 FB.logout(function(data){
-                    data.status === 'unknown' ? profile.btnText('Login') : 'WTF?'
+                    if(data.status === 'unknown'){
+                        profile.btnText('Login');
+                        profile.txtLogin('');
+                    } 
+                    else{
+                       // 'WTF?'
+                    }  
                     profile.fbId('');
                     user.name('');
                 });
@@ -51,7 +58,8 @@
                 console.warn(response);
                 if (response.id) {
 
-                    profile.btnText(response.first_name);
+                    profile.txtLogin(response.first_name);
+                    profile.btnText('Logout');                    
                     profile.fbId(response.id);
                     profile.name(response.name);
                     profile.username(response.username);

@@ -10,8 +10,20 @@
                           </div>
 
                           <div class="right menu">
+                            <!-- ko if: profile.fbId() -->
+                             <a class="item">
+                              <i class="user icon"></i>
+                               <span data-bind="text: profile.txtLogin"></span>
+                              </a> 
+                              <!-- /ko -->     
+                            
                             <a class="item" data-bind="click: login">
-                                    <i class="user icon"></i>
+                                <!-- ko if: profile.fbId() -->
+                                    <i class="sign in icon"></i>
+                                 <!-- /ko -->     
+                                  <!-- ko if: !profile.fbId() -->
+                                    <i class="sign out icon"></i>
+                                 <!-- /ko -->     
                                       <span data-bind="text: profile.btnText"></span>
                             </a>
                           </div>

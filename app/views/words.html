@@ -1,15 +1,9 @@
 <section>
     <div class="container" style="padding:15px;">
     	<p style='margin:10px'>Books: <select data-bind="options: books, optionsText: 'name', value: selectedBookName, optionsCaption: 'All'"></select>
-            Search word: <input type="text"  data-bind="value: filter, valueUpdate: 'afterkeydown'" />
-        </p><!--
-        <ul ata-bind="foreach: filteredWords">
-            <li>
-                <a href="#" data-bind="text: title, click: selectBook"></a>
-            </li>
-        </ul>-->        
+            Search word: <input type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'" />
+        </p>  
         
-
             <table border='1px'>
                 <thead>
                     <tr><th>Word</th><th>Translate</th><th colspan=2>Book</th></tr>
@@ -23,8 +17,9 @@
                     </tr>
                 </tbody>                
             </table>
+           
 
           <br>   
-       <span data-bind='text: filter'></span>
+       Value: <span data-bind='text: filter'></span>
     </div>	
 </section>    
