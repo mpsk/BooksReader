@@ -24,10 +24,10 @@ define(['service/user'], function (user) {
             //alert(user.words().length);
             $.each(user.words(), function(id, item) {
                 
-                if(item.text==obj.text && item.book==obj.book){                    
-                    console.info("Removing item", user.words(obj),id);
+                if (item.text==obj.text && item.book==obj.book) {                    
+                    console.info("Removing item", user.words(obj).id);
                     user.words.remove(id);
-                }               
+                }
                 
             });                
         }
