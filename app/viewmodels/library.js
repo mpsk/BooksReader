@@ -7,8 +7,6 @@ define(['plugins/dialog',
 
 	var REST = rest;
 	var books = ko.observableArray();
-	var test = ko.observable('rewrwerw');
-	//var cur_book = "some_book";
 
 	var self = {
 
@@ -41,7 +39,6 @@ define(['plugins/dialog',
 
     return {
     	user: user,
-    	test: test,
         addBook: self.addBook,
         getSelectedText: self.getSelectedText,
         getBookPreview: self.getBookPreview

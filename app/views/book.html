@@ -1,7 +1,11 @@
 <section class="readbook">
-	<div class="context" data-bind="html: context, event: {click: getSelectedText}"></div>
-	<div data-bind="text: user.name"></div>
-	<div data-bind="text: currentBook().name"></div>
+	<!-- <div class="context" data-bind="html: context, event: {click: getSelectedText}"></div> -->
+	<!-- <div data-bind="text: user.name"></div> -->
+	<!-- <div data-bind="text: currentBook().name"></div> -->
+
+	<div class="contents" data-bind="foreach: contents">
+		<div data-bind="text: title, click: $root.showContext"></div>
+	</div>
 
 </section>
 
@@ -13,6 +17,14 @@
 
 .readbook .context {
 	border: 1px solid red;
+}
+
+.readbook .contents {
+	cursor: pointer;
+}
+
+.readbook .contents div:hover {
+	font-weight: bold;
 }
 
 </style>
