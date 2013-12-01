@@ -10,7 +10,7 @@
         txtLogin: ko.observable()
     };
 
-    var self = {
+    var shell = {
         sidebar: function(vm, ev){
             var btn = ev.target;
             var $sidebar = $('.sidebar.menu');
@@ -47,7 +47,7 @@
 
             } else {
                 FB.login(function(data){
-                    self.getCurrentUser(data);
+                    shell.getCurrentUser(data);
                 });
             }
 
@@ -84,25 +84,27 @@
             { route: '',            moduleId: 'viewmodels/library',     title: 'Library' },
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
-            { route: 'book/:id',    moduleId: 'viewmodels/book',    title: 'Reading' }
+            { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' }
 
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
 
         ]).buildNavigationModel();
-         return router.activate().then(function(){;
-           FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
-            FB.getLoginStatus(function(data) {
-                self.getCurrentUser(data);
-            });
+
+        FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
+        FB.getLoginStatus(function(data) {
+            shell.getCurrentUser(data);
         });
+
+        return router.activate();
+        
     }   
 
     return {
         activate: activate,
         router: router,
-        sidebar: self.sidebar,
-        login: self.login,
+        sidebar: shell.sidebar,
+        login: shell.login,
         profile: profile
     };
 

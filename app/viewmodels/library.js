@@ -7,6 +7,7 @@ define(['plugins/dialog',
 
 	var REST = rest;
 	var books = ko.observableArray();
+	var test = ko.observable('rewrwerw');
 	var cur_book = "some_book";
 
 	var self = {
@@ -28,14 +29,6 @@ define(['plugins/dialog',
 			}
 		},
 
-		getBookContent: function(vm, e){
-			console.warn(this, e);
-			user.curBookName = this.name;
-			REST.getFile(user.id, this).then(function(text){
-				console.warn(text);
-			});
-
-		},
 		getBookPreview: function(vm, e){
 			var that = this;
 			REST.getFile(user.id, this).then(function(text){
@@ -43,14 +36,14 @@ define(['plugins/dialog',
 				dialog.showMessage(preview, that.title);
 			});
 		}
-		
+
 	};
 
     return {
     	user: user,
+    	test: test,
         addBook: self.addBook,
         getSelectedText: self.getSelectedText,
-        getBookContent: self.getBookContent,
         getBookPreview: self.getBookPreview
     };
 
