@@ -198,14 +198,20 @@ define(['durandal/system',
 				}
 			})();
 
-			var cover = '';
-			FileAPI.readAsBinaryString(file, function(e) {
-				cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
-			});
+			// var cover = '';
+			// var title = '';
+			// var author = '';
+			// FileAPI.readAsBinaryString(file, function(e) {
+			// 	cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
+			// });
+
+			// FileAPI.readAsText(file, 'utf-8', function(e){
+			// 	title = reader.getBookTitle(e.result);
+			// 	author = reader.getBookAuthor(e.result);
+			// });
+			var bookInfo = reader.getBookInfo(file);
 
 			var xhr = new XMLHttpRequest();
-
-			console.warn(bookStore);
 
 			xhr.open('PUT', DB.root+'/'+bookStore.id+'/'+file.name+'?rev='+bookStore.rev);
 			xhr.onload = function(data){
@@ -213,9 +219,11 @@ define(['durandal/system',
 				bookStore.rev = result.rev;
 
 				user.books.push({
+					cover: bookInfo.cover,
+					title: bookInfo.title,
+					author: bookInfo.author,
 					name: file.name,
-					size: file.size,
-					cover: cover
+					size: file.size
 				});
 
 				rest.updateUser(user);
