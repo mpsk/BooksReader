@@ -1,3 +1,18 @@
 <section class="readbook">
+	<div class="context" data-bind="html: context, event: {click: getSelectedText}"></div>
 	<div data-bind="text: user.name"></div>
+	<div data-bind="text: currentBook().name"></div>
+
 </section>
+
+<style>
+	
+.readbook {
+	padding: 10px;
+}
+
+.readbook .context {
+	border: 1px solid red;
+}
+
+</style>
