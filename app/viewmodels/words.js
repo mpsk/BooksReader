@@ -1,4 +1,4 @@
-define(['service/user'], function(user) {
+define(['service/user'], function (user) {
 
     var self = {
         selectedBook: ko.observable(''),
