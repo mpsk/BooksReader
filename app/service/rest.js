@@ -200,32 +200,35 @@ define(['durandal/system',
 					} 
 				}
 			})();
+			
+			reader.getBookInfo(file).then(function(bookInfo){
+				console.warn(bookInfo);
 
-			var bookInfo = reader.getBookInfo(file);
+				var xhr = new XMLHttpRequest();
+				xhr.open('PUT', DB.root+'/'+bookStore.id+'/'+file.name+'?rev='+bookStore.rev);
+				xhr.onload = function(data){
+					var result = JSON.parse(data.target.response);
+					bookStore.rev = result.rev;
 
-			var xhr = new XMLHttpRequest();
-			xhr.open('PUT', DB.root+'/'+bookStore.id+'/'+file.name+'?rev='+bookStore.rev);
-			xhr.onload = function(data){
-				var result = JSON.parse(data.target.response);
-				bookStore.rev = result.rev;
+					user.books.push({
+						cover: bookInfo.cover,
+						title: bookInfo.title,
+						author: bookInfo.author,
+						name: file.name,
+						size: file.size
+					});
 
-				user.books.push({
-					cover: bookInfo.cover,
-					title: bookInfo.title,
-					author: bookInfo.author,
-					name: file.name,
-					size: file.size
-				});
+					rest.updateUser(user);
+					dfd.resolve(result);
 
-				rest.updateUser(user);
-				dfd.resolve(result);
+				};
+				xhr.onerror  = function(data){
+					console.warn(data);
+					dfd.reject(data);
+				};
+				xhr.send(file);
 
-			};
-			xhr.onerror  = function(data){
-				console.warn(data);
-				dfd.reject(data);
-			};
-			xhr.send(file);
+			});
 
 			return dfd.promise();
 
