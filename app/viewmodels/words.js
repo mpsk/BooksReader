@@ -1,18 +1,19 @@
 define(['service/user'], function(user) {
 
-        var self = {
-                selectedBookName: ko.observable(''),
-    filter: ko.observable(''),
-    filteredWords: ko.computed(function () {
-       return ko.utils.arrayFilter(user.words, function (words1) {
-          console.log(words1);
-          var result = words1.indexOf(self.filter) != -1 || !self.filter;       
-            return result;
-        })
-     }),
-    deleteWord: function(text){
-    
-    }
+    var self = {
+           selectedBookName: ko.observable(''),
+      filter: ko.observable(''),
+      filteredWords: ko.computed(function () {
+          alert(user.words() );
+         return ko.utils.arrayFilter(user.words, function (words1) {
+            console.log(words1);
+            var result = words1.indexOf(self.filter) != -1 || !self.filter;       
+              return result;
+          })
+       }),
+      deleteWord: function(text){
+      
+       }
         }
     
    
