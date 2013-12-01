@@ -86,8 +86,8 @@
             { route: '',            moduleId: 'viewmodels/library',     title: 'Library' },
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
-            { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' }
-
+            { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
+            { route: 'settings',       moduleId: 'viewmodels/settings',       title: 'Settings'   }
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
 
