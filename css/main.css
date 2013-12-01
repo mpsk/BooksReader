@@ -9,3 +9,27 @@ body {
 div.container div.ui.menu {
 	border-radius: none !important;
 }
+
+.messageBox {
+	min-width: 150%;
+	max-height: 500px !important;
+	overflow-y: overlay;
+	padding: 20px;
+}
+
+src-title-info,
+document-info {
+	display: none;
+}
+
+genre, author, publish-info, lang {
+	display: block;
+}
+
+book-title {
+	font-weight: bold;
+}
+
+first-name {
+	padding-right: 0.5em;
+}

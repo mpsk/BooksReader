@@ -1,10 +1,11 @@
 define(['durandal/app', 
-		'durandal/system', 
+		'durandal/system',
+		'plugins/dialog', 
 		'service/rest', 
 		'service/reader',
 		'service/translator',
         'service/user',
-        'service/bookStore'], function (app, system, rest, reader, translator, user, bookStore) {
+        'service/bookStore'], function (app, system, dialog, rest, reader, translator, user, bookStore) {
 
 	var REST = rest;
 	var books = ko.observableArray();
@@ -19,15 +20,6 @@ define(['durandal/app',
 	    	});
 	    },
 
-	    getLibrary: function(){
-			// REST.root().then(function(db) {
-			// 	console.warn(db);
-			// 	books(JSON.stringify(db));
-			// });
-
-			console.warn(user);
-	    },
-
 		getSelectedText: function(vm, evt){
 			var text = $.selection();
 			if (text.length > 0) {
@@ -36,6 +28,16 @@ define(['durandal/app',
 					REST.addWord(text, data, cur_book);
 				});
 			}
+		},
+
+		getBookPreview: function(vm, e){
+			var that = this;
+			REST.getFile(user.id, this).then(function(text){
+				var preview = reader.getBookPreview(text);
+				dialog.showMessage(preview, that.title);
+				// dialog.show(vm, 'Title', 'desciption');
+				// dialog.show('message', 'title', 'options');
+			});
 		},
 
 		getBookContent: function(vm, e){
@@ -48,11 +50,11 @@ define(['durandal/app',
 	};
 
     return {
+    	user: user,
         addBook: self.addBook,
-        getLibrary: self.getLibrary,
         getSelectedText: self.getSelectedText,
-        user: user, // just for test here
-        getBookContent: self.getBookContent //
+        getBookContent: self.getBookContent,
+        getBookPreview: self.getBookPreview
     };
 
 });

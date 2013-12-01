@@ -23,7 +23,8 @@ function (app, system, viewLocator, dataContext) {
     app.title = 'BookReader';
 
     app.configurePlugins({
-        router: true
+        router: true,
+        dialog: true
     });
 
     app.start().then(function(){

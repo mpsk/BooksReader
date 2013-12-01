@@ -54,6 +54,18 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 			return fullName;
 		},
 
+		getBookPreview: function(text){
+			// var xml = $.parseXML(text);
+			// var desc = $(xml).find('description');
+			// var description = $(desc).text();
+			// console.warn(description);
+			var cleanText = text.replace(/\n/g, '');
+			var description = $(cleanText).find('description').html();
+			console.warn(description);
+
+			return description;
+		},
+
 		getBookInfo: function(file){
 			var info = {};
 			var coding = 'UTF-8';

@@ -9,9 +9,6 @@
 	  		Add Book
 	  		<input type="file" id="file" data-bind="event: { change: addBook }"/>
 		</div>
-		<div>
-			<div class="ui positive small button" data-bind="click: getLibrary">GetLibraryTest</div>
-		</div>
 	</div>
 
 	<div>
@@ -28,7 +25,7 @@
 			<div class="title" data-bind="text: title"></div>
 			<div class="author" data-bind="text: author"></div>
 			<div class="btns">
-				<div class="ui positive mini button" data-bind="click: $root.getBookContent">
+				<div class="ui positive mini button" data-bind="click: $root.getBookPreview">
 					<i class="info icon"></i>
 				</div>
 				<div class="ui positive mini button" data-bind="click: $root.getBookContent">Read</div>
@@ -44,6 +41,7 @@
 .library .booklist{
 	/*border: 1px solid red;*/
 	padding: 10px;
+	display: block;
 }
 
 .library .booklist img {
@@ -87,7 +85,7 @@
 }
 
 
-.file_upload{
+.file_upload {
 	cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -111,11 +109,14 @@
 }
 
 .library div.br-header {
+	/*border: 1px solid red;*/
 	width: 100%;
+	display: block;
+	padding-bottom: 10px;
 }
 
 .library div.br-search  {
-	float: right;
+	/*float: right;*/
 	padding-left: 10px;
 }
 
