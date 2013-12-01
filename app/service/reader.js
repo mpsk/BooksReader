@@ -66,23 +66,31 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 		},
 
 		getBookInfo: function(file){
+			var dfd = $.Deferred();
 			var info = {};
 			var coding = 'utf-8';
 
 			FileAPI.readAsBinaryString(file, function(e) {
 
 				coding = $.parseXML(e.result).xmlEncoding || coding;
+				var image = reader.getBookBinaryImage(e.result);
 
-				info.cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
+				if (image) {
+					info.cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
+				} else {
+					info.cover = '././images/cover.jpeg';
+				}
 
 				FileAPI.readAsText(file, coding, function(e){
 					info.title = reader.getBookTitle(e.result);
 					info.author = reader.getBookAuthor(e.result);
+
+					dfd.resolve(info);
 				});
 
 			});
 
-			return info;
+			return dfd.promise();
 		}
 
 	};

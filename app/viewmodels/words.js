@@ -21,7 +21,7 @@ define(['service/user'], function (user) {
 
         }),
         deleteWord: function(obj) {
-            user.words.remove(this);                         
+            user.words.remove(this);
         }
     };
    
