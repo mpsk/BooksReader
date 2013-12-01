@@ -1,26 +1,23 @@
 define(['service/user'], function(user) {
 
     var self = {
-       selectedBookName: ko.observable('erg'),
+      selectedBook: ko.observable(''),
       filter: ko.observable(''),
       filteredWords: ko.computed(function () {
           return ko.utils.arrayFilter(user.words(), function (words1) {
-             //alert(words1.text) ;
-             //alert(self.filter());
              var sstr = words1.text;
-             //alert(sstr+" } "+self.filter()+" { "+sstr.indexOf(self.filter()) );
-             var result = sstr.indexOf(self.filter())> -1 || !self.filter();     
-             //alert(result);
+             var bstr = words1.book;
+             var result = true;
+             if(self.filter()!=undefined){
+               result = sstr.indexOf(self.filter())> -1 || !self.filter();                   
+                  if(self.selectedBook()!=undefined){                  
+                    var b_name = self.selectedBook().name;
+                    if(bstr.toString()!=b_name.toString()) result=false;
+                  }
+              }      
             return result;
           });
-         // alert(user.words().length );
-        /* setTimeout(function(){
-              return ko.utils.arrayFilter(user.words(), function (words1) {
-                  console.log(words(), words1);
-                  var result = words1.indexOf(self.filter() ) != -1 || !self.filter();       
-                    return result;
-                })
-         },1000);*/
+        
          
        }),
       deleteWord: function(text){
@@ -32,7 +29,7 @@ define(['service/user'], function(user) {
 
     return {
        words: user.words,
-       selectedBookName: self.selectedBookName,
+       selectedBook: self.selectedBook,
        books: user.books,
        filter: self.filter,
        deleteWord: self.deleteWord,
