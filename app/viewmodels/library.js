@@ -30,7 +30,6 @@ define(['durandal/app',
 			}
 		},
 
-
 		getBookContent: function(vm, e){
 			console.warn(this, e);
 			user.curBookName = this.name;
@@ -44,14 +43,16 @@ define(['durandal/app',
 			REST.getFile(user.id, this).then(function(text){
 				var preview = reader.getBookPreview(text);
 				dialog.showMessage(preview, that.title);
-				// dialog.show(vm, 'Title', 'desciption');
-				// dialog.show('message', 'title', 'options');
 			});
 		}/*,
 
 		getBookContent: function(vm, e){
 			console.warn(this, e)
 			user.curBookName = this.name;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a49fc21606a75799a0ed889e855eee49c3cd121e
 			REST.getFile(user.id, this).then(function(text){
 
 				console.warn(text);
