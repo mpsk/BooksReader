@@ -20,8 +20,16 @@ define(['service/user'], function(user) {
 
 
         }),
-        deleteWord: function(text) {
-            //user.words()
+        deleteWord: function(obj) {
+            //alert(user.words().length);
+            $.each(user.words(), function(id, item) {
+                
+                if(item.text==obj.text && item.book==obj.book){                    
+                    console.info("Removing item", user.words(obj),id);
+                    user.words.remove(id);
+                }               
+                
+            });                
         }
     };
    

@@ -1,4 +1,4 @@
-define(['service/user','service/rest'], function(user, rest) {
+define(['service/user'], function(user) {
 
     // var user_name = ko.observable(user.name());
 
@@ -17,18 +17,7 @@ define(['service/user','service/rest'], function(user, rest) {
 
         //var result = rest.getUserAvatar();
         //console.info(result);
-        //alert(result);
-        //$('#userinfo').append(facebook.makecard(25, 'https://graph.facebook.com/'+value.id+'/picture', value.name, value.id));
-
-        //http://profile.ak.fbcdn.net/hprofile-ak-ash3/195591_100002657183599_345740511_n.jpg
-    //     var dfd = $.Deferred();
-
-    //     //dfd.resolve(response);
-    //     setTimeout(function() {
-    //         console.info(user.name());
-    //         user_name(user.name());
-    //     }, 2000);
-
+      
     
      }
 

@@ -12,7 +12,10 @@
                     <tr width='600px'>
                         <td data-bind="text: text" width='250px'></td>
                         <td data-bind="text: translate" width='250px'></td>
-                        <td data-bind="text: book"></td>
+                        <td><a data-bind="attr: {href: '#book/'+book}">
+                            <span data-bind="text: book"></span>
+                           </a> 
+                        </td>
                         <td><button type="button" class="close" data-bind="click: $parent.deleteWord">&times;</button></td>
                     </tr>
                 </tbody>                

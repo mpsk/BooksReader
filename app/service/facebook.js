@@ -53,6 +53,25 @@ define([], function () {
             }
 
             return dfd.promise();
+        },
+        getUserAvatar: function(){
+            var dfd = $.Deferred();
+            console.log('getUserAvatar');
+            http.get("http://graph.facebook.com/"+user.fbId+"/picture?type=large")
+                .done(function(result){
+                    //var result = JSON.parse(result);
+                    console.log('GET USER AVATAR');
+                    
+                    
+
+                    dfd.resolve(result);
+
+                })
+                .fail(function(result){
+                    console.warn('FAIL GET USER AVATAR', result);
+                });
+
+            return dfd.promise();
         }
 
     };
