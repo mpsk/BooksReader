@@ -47,6 +47,7 @@
 
             } else {
                 FB.login(function(data){
+
                     self.getCurrentUser(data);
                 });
             }
@@ -54,9 +55,10 @@
         },
 
         getCurrentUser: function(data){
+           
             facebook.getUserInfo(data).then(function(response) {
-                console.warn(response);
-                if (response.id) {
+                console.warn(response);                
+               if (response.id) {
 
                     profile.txtLogin(response.first_name);
                     profile.btnText('Logout');                    

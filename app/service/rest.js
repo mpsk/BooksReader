@@ -15,7 +15,6 @@ define(['durandal/system',
 
 		checkForUser: function(user){
 			var dfd = $.Deferred();
-
 			http.get(DB.checkUser+'?keys=["'+user.fbId+'"]')
 				.done(function(result){
 					var result = JSON.parse(result);
