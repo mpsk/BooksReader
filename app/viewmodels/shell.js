@@ -47,12 +47,8 @@
 
             } else {
                 FB.login(function(data){
-<<<<<<< HEAD
-
-                    self.getCurrentUser(data);
-=======
+                   // self.getCurrentUser(data);
                     shell.getCurrentUser(data);
->>>>>>> c13a77816daa5a6726768c92b84ab3742478d161
                 });
             }
 
