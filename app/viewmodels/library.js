@@ -40,8 +40,6 @@ define(['durandal/app',
 			REST.getFile(user.id, this).then(function(text){
 				var preview = reader.getBookPreview(text);
 				dialog.showMessage(preview, that.title);
-				// dialog.show(vm, 'Title', 'desciption');
-				// dialog.show('message', 'title', 'options');
 			});
 		},
 

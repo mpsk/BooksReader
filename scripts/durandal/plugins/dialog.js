@@ -88,7 +88,7 @@ define(['durandal/system', 'durandal/app', 'durandal/composition', 'durandal/act
                 '<p class="message" data-bind="html: message"></p>',
             '</div>',
             '<div class="modal-footer" data-bind="foreach: options">',
-                '<button class="btn" data-bind="click: function () { $parent.selectOption($data); }, text: $data, css: { \'btn-primary\': $index() == 0, autofocus: $index() == 0 }"></button>',
+                '<button class="btn" data-bind="click: function () { $parent.selectOption($data); }, text: $data, css: { \'btn-primary\': $index() == 0}"></button>',
             '</div>',
         '</div>'
     ].join('\n');

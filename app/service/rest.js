@@ -188,6 +188,8 @@ define(['durandal/system',
 
 		uploadBook: function(file){
 			var dfd = $.Deferred();
+
+			// TODO: Add checking for supported types
 			var type = (function(){
 				if (file.type.length > 0) {
 					return file.type;
@@ -198,21 +200,9 @@ define(['durandal/system',
 				}
 			})();
 
-			// var cover = '';
-			// var title = '';
-			// var author = '';
-			// FileAPI.readAsBinaryString(file, function(e) {
-			// 	cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
-			// });
-
-			// FileAPI.readAsText(file, 'utf-8', function(e){
-			// 	title = reader.getBookTitle(e.result);
-			// 	author = reader.getBookAuthor(e.result);
-			// });
 			var bookInfo = reader.getBookInfo(file);
 
 			var xhr = new XMLHttpRequest();
-
 			xhr.open('PUT', DB.root+'/'+bookStore.id+'/'+file.name+'?rev='+bookStore.rev);
 			xhr.onload = function(data){
 				var result = JSON.parse(data.target.response);

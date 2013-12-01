@@ -22,14 +22,13 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 
 		getBookTitle: function(text){
 			var xml = $.isXMLDoc(text);
-			var title = 'TITLE';
-
+			console.warn('xml '+xml);
 			if (xml) {
 				var xmlText = $.parseXML(text);
-				title = $(xmlText).find('book-title').text();
+				var title = $(xmlText).find('book-title').text();
 			} else {
 				var cleanText = text.replace(/\n/g, '');
-				title = $(cleanText).find('book-title').text();
+				var title = $(cleanText).find('book-title').text();
 			}
 
 			return title;
@@ -37,7 +36,7 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 
 		getBookAuthor: function(text){
 			var xml = $.isXMLDoc(text);
-			
+			console.warn('xml '+xml);
 			if (xml) {
 				var xmlText = $.parseXML(text);
 				var author = $(xmlText).find('title-info author');
@@ -68,11 +67,11 @@ define(['durandal/system', 'plugins/http'], function (system, http) {
 
 		getBookInfo: function(file){
 			var info = {};
-			var coding = 'UTF-8';
+			var coding = 'utf-8';
 
 			FileAPI.readAsBinaryString(file, function(e) {
 
-				coding = $.parseXML(e.result).xmlEncoding;
+				coding = $.parseXML(e.result).xmlEncoding || coding;
 
 				info.cover = "data:image/jpeg;base64," + reader.getBookBinaryImage(e.result);
 
