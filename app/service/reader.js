@@ -1,8 +1,5 @@
 define(['durandal/system', 'plugins/http'], function (system, http) {
-
-	var coding = {
-		UTF: 'UTF-8'
-	};
+	
 
 	var reader = {
 

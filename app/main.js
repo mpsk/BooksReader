@@ -15,10 +15,10 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/app', 'durandal/system', 'durandal/viewLocator', 'service/dataContext'], 
-function (app, system, viewLocator, dataContext) {
+define(['durandal/app', 'durandal/system', 'durandal/viewLocator', 'service/dataStore'], 
+function (app, system, viewLocator, dataStore) {
 
-    system.debug(false);
+    system.debug(true);
 
     app.title = 'BookReader';
 

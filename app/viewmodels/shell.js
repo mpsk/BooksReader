@@ -10,6 +10,8 @@
         txtLogin: ko.observable()
     };
 
+    // var currentBook = ko.observable(user.curBookName);
+
     var shell = {
         sidebar: function(vm, ev){
             var btn = ev.target;
@@ -78,6 +80,10 @@
                     profile.btnText('Login');
                 }
             });
+        },
+
+        toContents: function(){
+            router.navigate('#contents/'+user.curBookName, false);
         }
     }
 
@@ -87,7 +93,9 @@
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
             { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
-            { route: 'settings',       moduleId: 'viewmodels/settings',       title: 'Settings'   }
+            { route: 'book/:id/contents',    moduleId: 'viewmodels/contents',    title: 'Contents'},
+            // { route: 'contents',    moduleId: 'viewmodels/contents',    title: 'Contents'},
+            { route: 'settings',    moduleId: 'viewmodels/settings',    title: 'Settings'}
             // { route: 'create', moduleId: 'viewmodels/createTask' },
             // { route: 'task/:id', moduleId: 'viewmodels/task' }
 
@@ -107,7 +115,10 @@
         router: router,
         sidebar: shell.sidebar,
         login: shell.login,
-        profile: profile
+        profile: profile,
+        user: user,
+        toContents: shell.toContents
+        // currentBook: currentBook
     };
 
 })

@@ -1,7 +1,7 @@
 ﻿define(['viewmodels/createTask'], function (viewModel) {
 
     var 
-        dataContext = require('service/dataContext'),
+        dataStore = require('service/dataStore'),
         router = require('plugins/router');
         // system = require('durandal/system');
 
@@ -42,7 +42,7 @@
         describe('createTask:', function () {
 
             beforeEach(function(){
-                spyOn(dataContext, 'createTask');
+                spyOn(dataStore, 'createTask');
                 spyOn(router, 'navigate');
             });
 
@@ -58,7 +58,7 @@
 
                 viewModel.createTask();
 
-                expect(dataContext.createTask).toHaveBeenCalledWith(title, description);
+                expect(dataStore.createTask).toHaveBeenCalledWith(title, description);
 
             });
 
@@ -93,7 +93,7 @@
                 // it('should not add task', function(){
                 //     viewModel.title('');
                 //     viewModel.createTask();
-                //     expect(dataContext.createTask).toHaveBeenCalledWith();
+                //     expect(dataStore.createTask).toHaveBeenCalledWith();
                 // });
             });
 
