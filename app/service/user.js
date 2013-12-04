@@ -9,7 +9,7 @@ define([], function () {
         books: ko.observableArray([]),
         words: ko.observableArray([]),
         // FIXME:Should not be here (current book name);
-        curBookName: ''
+        curBookName: ko.observable('')
     }
 
     return user;

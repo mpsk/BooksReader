@@ -7,7 +7,7 @@ define(['service/user',
     function activate(){
         setTimeout(function(){
             
-            currentBook(user.curBookName);
+            currentBook(user.curBookName());
             contents(dataStore.bookContents);
 
             console.warn(user, dataStore.bookContents);
@@ -16,7 +16,8 @@ define(['service/user',
 
     return {
         activate: activate,
-        contents: contents
+        contents: contents,
+        user: user
     };
 
 });

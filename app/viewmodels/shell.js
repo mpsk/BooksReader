@@ -10,8 +10,6 @@
         txtLogin: ko.observable()
     };
 
-    // var currentBook = ko.observable(user.curBookName);
-
     var shell = {
         sidebar: function(vm, ev){
             var btn = ev.target;
@@ -40,16 +38,12 @@
                         profile.btnText('Login');
                         profile.txtLogin('');
                     } 
-                    else{
-                       // 'WTF?'
-                    }  
                     profile.fbId('');
                     user.name('');
                 });
 
             } else {
                 FB.login(function(data){
-                   // self.getCurrentUser(data);
                     shell.getCurrentUser(data);
                 });
             }
@@ -82,8 +76,10 @@
             });
         },
 
-        toContents: function(){
-            router.navigate('#contents/'+user.curBookName, false);
+        routeTo: {
+            contents: function(){
+                router.navigate('#contents/'+user.curBookName(), false);
+            }
         }
     }
 
@@ -93,7 +89,7 @@
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
             { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
-            { route: 'book/:id/contents',    moduleId: 'viewmodels/contents',    title: 'Contents'},
+            { route: 'contents/:id',    moduleId: 'viewmodels/contents',    title: 'Contents'},
             // { route: 'contents',    moduleId: 'viewmodels/contents',    title: 'Contents'},
             { route: 'settings',    moduleId: 'viewmodels/settings',    title: 'Settings'}
             // { route: 'create', moduleId: 'viewmodels/createTask' },
@@ -117,8 +113,7 @@
         login: shell.login,
         profile: profile,
         user: user,
-        toContents: shell.toContents
-        // currentBook: currentBook
+        routeTo: shell.routeTo
     };
 
 })

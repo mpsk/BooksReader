@@ -22,7 +22,7 @@ define(['plugins/dialog',
 			if (text.length > 0) {
 				translator.translate(text).then(function(data){
 					console.warn(data);
-					REST.addWord(text, data, user.curBookName);
+					REST.addWord(text, data, user.curBookName());
 				});
 			}
 		},

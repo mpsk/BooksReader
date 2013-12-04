@@ -19,8 +19,8 @@ define(['plugins/router',
 
             _.each(user.books(), function(item){
                 if (item.name === bookName) {
-                    user.curBookName = bookName;
-                    console.info('CURRENT BOOK IS '+user.curBookName);
+                    user.curBookName(bookName);
+                    console.info('CURRENT BOOK IS '+user.curBookName());
                     currentBook(item);
                 }
             });
