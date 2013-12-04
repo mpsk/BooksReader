@@ -33,6 +33,16 @@ define(['plugins/dialog',
 				var preview = reader.getBookPreview(text);
 				dialog.showMessage(preview, that.title);
 			});
+		},
+
+		deleteBook: function(){
+			console.warn(this);
+			var that = this;
+			REST.deleteBook(user.id, this).then(function(data){
+				if (data.ok) {
+					console.warn(data);
+				}
+			})
 		}
 
 	};
@@ -41,7 +51,8 @@ define(['plugins/dialog',
     	user: user,
         addBook: self.addBook,
         getSelectedText: self.getSelectedText,
-        getBookPreview: self.getBookPreview
+        getBookPreview: self.getBookPreview,
+        deleteBook: self.deleteBook
     };
 
 });

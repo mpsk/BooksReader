@@ -76,6 +76,7 @@
             });
         },
 
+        // Can user like router to some view
         routeTo: {
             contents: function(){
                 router.navigate('#contents/'+user.curBookName(), false);
@@ -90,10 +91,7 @@
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
             { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
             { route: 'contents/:id',    moduleId: 'viewmodels/contents',    title: 'Contents'},
-            // { route: 'contents',    moduleId: 'viewmodels/contents',    title: 'Contents'},
             { route: 'settings',    moduleId: 'viewmodels/settings',    title: 'Settings'}
-            // { route: 'create', moduleId: 'viewmodels/createTask' },
-            // { route: 'task/:id', moduleId: 'viewmodels/task' }
 
         ]).buildNavigationModel();
 

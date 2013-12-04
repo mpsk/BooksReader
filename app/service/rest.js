@@ -151,6 +151,26 @@ define(['durandal/system',
 			return dfd.promise();
 		},
 
+		deleteBook: function(userId, book){
+			var dfd = $.Deferred();
+
+			$.ajax({
+				url: DB.root+'/'+userId+'_books/'+book.name+'?rev='+bookStore.rev,
+				type: 'DELETE',
+				complete: function(result){
+					var result = JSON.parse(result.responseText);
+					if (result.ok) {
+						bookStore.rev = result.rev;
+						user.books.remove(book);
+						rest.updateUser(user);
+					}
+					dfd.resolve(result);
+				}
+			});
+
+			return dfd.promise();
+		},
+
 		getFile: function(userId, book){
 			var dfd = $.Deferred();
 
