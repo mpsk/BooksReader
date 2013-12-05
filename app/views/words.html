@@ -1,10 +1,28 @@
 <section>
     <div class="container" style="padding:15px;">
-    	<p style='margin:10px'>Books: <select data-bind="options: books, optionsText: 'name', value: selectedBook, optionsCaption: 'All'"></select>
-            Search word: <input type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'" />
+    <!--     <div class="ui input focus">
+    	<p style='margin:10px'><label>Books:</label>
+            <label>Search word:</label> <input type="text" placeholder="Word" data-bind="value: filter, valueUpdate: 'afterkeydown'" />
         </p>  
+        </div>-->
+
+
+ <div class="ui form">
+      <div class="inline fields">
+        <div class="field">
+          <label>Books</label>
+          <select data-bind="options: books, optionsText: 'name', value: selectedBook, optionsCaption: 'All'"></select>
+        </div>
+        <div class="field">
+            <label>Search word</label>
+          <input  placeholder="Word"  type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'">
+        </div>       
+      </div>
+    </div>
+
         
-            <table >
+        <!-- ko if: filteredWords().length > 0 -->
+            <table class="ui table segment">
                 <thead>
                     <tr><th>Word</th><th>Translate</th><th colspan="2">Book</th></tr>
                 </thead>
@@ -16,11 +34,15 @@
                             <span data-bind="text: book"></span>
                            </a> 
                         </td>
-                        <td><button type="button" class="close" data-bind="click: $parent.deleteWord">&times;</button></td>
+                        <td><a data-bind="click: $parent.deleteWord" style='cursor:pointer;'> <i class="icon close">&nbsp;</i></td>
                     </tr>
                 </tbody>                
             </table>
-         
+         <!-- /ko -->        
+  
+        <!-- ko if: filteredWords().length < 1 -->
+            <div class="ui ignored info message"><STRONG>Nothing found!</STRONG></div>
+        <!-- /ko -->      
 
           <br>        
     </div>	
