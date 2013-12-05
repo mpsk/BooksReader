@@ -38,16 +38,12 @@
                         profile.btnText('Login');
                         profile.txtLogin('');
                     } 
-                    else{
-                       // 'WTF?'
-                    }  
                     profile.fbId('');
                     user.name('');
                 });
 
             } else {
                 FB.login(function(data){
-                   // self.getCurrentUser(data);
                     shell.getCurrentUser(data);
                 });
             }
@@ -78,6 +74,13 @@
                     profile.btnText('Login');
                 }
             });
+        },
+
+        // Can user like router to some view
+        routeTo: {
+            contents: function(){
+                router.navigate('#contents/'+user.curBookName(), false);
+            }
         }
     }
 
@@ -87,9 +90,8 @@
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
             { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
-            { route: 'settings',       moduleId: 'viewmodels/settings',       title: 'Settings'   }
-            // { route: 'create', moduleId: 'viewmodels/createTask' },
-            // { route: 'task/:id', moduleId: 'viewmodels/task' }
+            { route: 'contents/:id',    moduleId: 'viewmodels/contents',    title: 'Contents'},
+            { route: 'settings',    moduleId: 'viewmodels/settings',    title: 'Settings'}
 
         ]).buildNavigationModel();
 
@@ -107,7 +109,9 @@
         router: router,
         sidebar: shell.sidebar,
         login: shell.login,
-        profile: profile
+        profile: profile,
+        user: user,
+        routeTo: shell.routeTo
     };
 
 })

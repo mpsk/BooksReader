@@ -1,0 +1,23 @@
+<section class="contents">
+	
+	<div data-bind="foreach: contents">
+		<div class="item" data-bind="text: title"></div>
+	</div>
+
+</section>
+
+<style>
+
+.contents  {
+	padding: 10px;
+}
+
+.contents .item {
+	cursor: pointer;
+}
+
+.contents .item:hover {
+	font-weight: bold;
+}
+
+</style>

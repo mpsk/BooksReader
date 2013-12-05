@@ -17,6 +17,11 @@
 	
 	<div class="booklist" data-bind="foreach: user.books">
 		<div class="item">
+			<div class="remove">
+				<div class="ui positive mini button" data-bind="click: $root.deleteBook">
+					<i class="remove icon"></i>
+				</div>
+			</div>
 			<center>
 				<div class="cover">
 					<img data-bind="attr: {src: cover}">
@@ -61,6 +66,15 @@
 
 .library .booklist .item i.icon{
 	margin: 0;
+}
+
+.library .booklist div.remove {
+	position: absolute;
+	display: none;
+}
+
+.library .booklist .item:hover div.remove {
+	display: inline;
 }
 
 .library .booklist .btns,

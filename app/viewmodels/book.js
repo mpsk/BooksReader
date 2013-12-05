@@ -1,8 +1,9 @@
 define(['plugins/router',
         'service/user',
         'service/rest',
-        'service/translator'
-        ], function (router, user, rest, translator) {
+        'service/translator',
+        'service/dataStore'
+        ], function (router, user, rest, translator, dataStore) {
 
     var REST = rest;
 
@@ -18,8 +19,8 @@ define(['plugins/router',
 
             _.each(user.books(), function(item){
                 if (item.name === bookName) {
-                    user.curBookName = bookName;
-                    console.info('CURRENT BOOK IS '+user.curBookName);
+                    user.curBookName(bookName);
+                    console.info('CURRENT BOOK IS '+user.curBookName());
                     currentBook(item);
                 }
             });
@@ -50,11 +51,14 @@ define(['plugins/router',
                     var section = {title: title, index: i};
                     contents.push(section);
                 }
+
+                
             });
+
+            dataStore.bookContents = contents();
 
             console.warn(body);
             console.warn(contents());
-            // console.warn(sections);
         },
 
         // Текст
@@ -65,6 +69,8 @@ define(['plugins/router',
                     console.warn(item);
                 }
             });
+
+            console.warn(dataStore.bookContents);
         },
 
         getSelectedText: function(vm, evt){
@@ -79,10 +85,15 @@ define(['plugins/router',
 
     };
 
+    function canActivate(para) {
+        return true;
+    };
+
     function activate(bookName){
         // FIXME: Bad solution. Maybe use trigger app events.
         
         contents([]);
+        dataStore.bookContents = [];
 
         var check = setInterval(function(){
             if (user.id) {
@@ -91,9 +102,10 @@ define(['plugins/router',
             }
         }, 500);
 
-    }
+    };
 
     return {
+        canActivate: canActivate,
         activate: activate,
         user: user,
         currentBook: currentBook,
