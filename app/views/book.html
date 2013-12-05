@@ -4,7 +4,10 @@
 	<!-- <div data-bind="text: currentBook().name"></div> -->
 
 	<div class="contents" data-bind="foreach: contents">
-		<div data-bind="text: title, click: $root.showContext"></div>
+		<div class="title" data-bind="html: title, click: $root.showContext"></div>
+	</div>
+	<div class="currentSection">
+		<div data-bind="html: currentSection"></div>
 	</div>
 
 </section>
@@ -19,7 +22,7 @@
 	border: 1px solid red;
 }
 
-.readbook .contents {
+.readbook .contents div.title{
 	cursor: pointer;
 }
 

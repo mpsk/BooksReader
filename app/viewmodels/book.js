@@ -11,11 +11,12 @@ define(['plugins/router',
 
     var context = ko.observable('');
     var contents = ko.observableArray([]);
-    var $bookSections = [];
+    var currentSection = ko.observable('');
+    var bookSections = [];
 
     var book = {
 
-        getBook: function(bookName){
+        getBook: function(bookName, selectedSection){
 
             _.each(user.books(), function(item){
                 if (item.name === bookName) {
@@ -26,51 +27,61 @@ define(['plugins/router',
             });
 
             REST.getFile(user.id, bookName).then(function(text){
-                // console.warn(text);
                 var xml = $.parseXML(text);
                 console.warn(xml);
                 context(text);
-                book.showContents();
+
+                // book.showContents();
+                selectedSection ? book.showContext(selectedSection) : book.showContents();
+
             });
 
         },
 
         // Оглавление
         showContents: function(){
-            var xml = $.parseXML(context());
-            var body = $(xml).find('body');
-            var sections = $(body[0]).find('section');
+            // var xml = $.parseXML(context());
+            // var body = $(context()).find('body');
+            // var body = $(xml).find('body');
+            // var sections = $(body[0]).find('section');
+            var sections = $(context()).find('section');
             console.warn(sections);
-            $bookSections = sections;
+            bookSections = sections;
 
             _.each(sections, function(item, i){
+                console.warn(item, i);
                 var title = $(item).find('title').text();
-                title = title.replace(/\n/g, '');
+                // console.warn($(item).find('title'));
+                // title = title.replace(/\n/g, '');
 
-                if (title) {
-                    var section = {title: title, index: i};
-                    contents.push(section);
-                }
+                var section = {title: title, index: i, text: item.innerHTML};
+                contents.push(section);
 
                 
             });
 
             dataStore.bookContents = contents();
 
-            console.warn(body);
             console.warn(contents());
         },
 
         // Текст
-        showContext: function(){
+        showContext: function(selectedSection){
+            console.warn(selectedSection);
             var that = this;
-            _.each($bookSections, function(item, i){
-                if (that.index === i) {
+
+            _.each(contents(), function(item, i){
+                console.warn(item, i);
+                if (selectedSection && (selectedSection.index === i) ) {
+                    console.warn(item.text);
+                    currentSection(item.text);
+                } else if (that.index === i) {
                     console.warn(item);
+                    currentSection(item.text);
                 }
             });
 
-            console.warn(dataStore.bookContents);
+            // console.warn(dataStore.bookContents);
         },
 
         getSelectedText: function(vm, evt){
@@ -85,19 +96,19 @@ define(['plugins/router',
 
     };
 
-    function canActivate(para) {
-        return true;
-    };
-
-    function activate(bookName){
+    function activate(bookName, selectedSection){
         // FIXME: Bad solution. Maybe use trigger app events.
-        
         contents([]);
         dataStore.bookContents = [];
 
         var check = setInterval(function(){
-            if (user.id) {
+            if (user.id && !selectedSection) {
                 book.getBook(bookName);
+                clearInterval(check);
+            }
+
+            if (user.id && selectedSection) {
+                book.getBook(bookName, selectedSection);
                 clearInterval(check);
             }
         }, 500);
@@ -105,10 +116,10 @@ define(['plugins/router',
     };
 
     return {
-        canActivate: canActivate,
         activate: activate,
         user: user,
         currentBook: currentBook,
+        currentSection: currentSection,
         context: context,
         contents: contents,
         showContext: book.showContext,

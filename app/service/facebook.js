@@ -39,6 +39,11 @@ define([], function () {
         // эта функция выводит карточку пользователя
         getUserInfo: function(data) {
             var dfd = $.Deferred();
+
+            // var OFFLINE = {"id":"100000405491053","name":"Mykola Piskovyi","first_name":"Mykola","last_name":"Piskovyi","link":"https://www.facebook.com/m.piskovyi","username":"m.piskovyi","quotes":"Power wears out those who dont have it.\r\n(c) GodFarther","education":[{"school":{"id":"108057582556190","name":"Kiev Polytechnic Institute"},"year":{"id":"142963519060927","name":"2010"},"concentration":[{"id":"196351893724096","name":"Radio Engineering"}],"type":"College"}],"gender":"male","timezone":2,"locale":"ru_RU","languages":[{"id":"112047618813812","name":"English"},{"id":"115447225136484","name":"Українська"},{"id":"112624162082677","name":"Russian"}],"verified":true,"updated_time":"2013-11-22T23:52:37+0000"};
+            // dfd.resolve(OFFLINE);
+
+            
             if (data.status === 'connected') {
                 FB.api('/me', function(response){
 
@@ -51,6 +56,7 @@ define([], function () {
             } else {
                 dfd.resolve(data);
             }
+            
 
             return dfd.promise();
         },

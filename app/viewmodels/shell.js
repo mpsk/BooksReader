@@ -53,8 +53,8 @@
         getCurrentUser: function(data){
            
             facebook.getUserInfo(data).then(function(response) {
-                console.warn(response);                
-               if (response.id) {
+                console.warn(response);
+                if (response.id) {
 
                     profile.txtLogin(response.first_name);
                     profile.btnText('Logout');                    
@@ -90,15 +90,27 @@
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
             { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
             { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
+            { route: 'book/:id/:section',    moduleId: 'viewmodels/book',    title: 'Reading'},
             { route: 'contents/:id',    moduleId: 'viewmodels/contents',    title: 'Contents'},
             { route: 'settings',    moduleId: 'viewmodels/settings',    title: 'Settings'}
 
         ]).buildNavigationModel();
 
         FB.init({appId: '176984692495321', status: true, cookie: false, xfbml: true});
+        
         FB.getLoginStatus(function(data) {
             shell.getCurrentUser(data);
         });
+        
+        // shell.getCurrentUser({
+        //     authResponse: {
+        //         accessToken: "CAACg93W6E9kBAGkrHSH2QHcsRwUAzSGY0222I3jsCK2ZB6jkb99mkUde4m7B18pAqt8cs4saaosPZAr4lZCTga9ZCZAdymsN3mkwSW4LYj5WliESnBWqcikmA9yJQX3t9dwutwVQcqCnZBmdXy8m1FTQXWXnRTr31CHP9DBIzOxDGq5aCDWGd1bimazLe2HhE9CninYY3OegZDZD",
+        //         expiresIn: 7050,
+        //         signedRequest: "yJcP3ShDNR_CdYkrml8iGxV_AsgPyCYTc_GWE0PnkMo.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUUFCamZpSTBXZzE3TnJYWjg0dmlxMEU5OXdkb0ZWTnJDaVRmU2VrZldYN0Njckgwandid1lwdkI2SGpSRUhKWDhuaE15aUtKaDRkX3RhQXNQb2w3ZVI0NHRzRUdEeVJaYUtfaTZsTzZXUndHOUNHVThNVVMzWURPVlM2UGpTcjlhN1VTd3k0WWl4U1U5QlZUNzl3R2oyaE9lRFYzcWNYTXByZFBuaFoxT204VG4wLV82bm95aldRd294d2c3OFU1anZUM0JjdmNVcnJua0RKdUpvdVZPT21QbWFXbmI5Nk1QYkF3c0FKSTdNZS15NnhhbERkSmhvYW9fVzY0S1JBWTZMa1ExZV9VYTVsRHZYQjd5eTNYNmE0UmNoUVFhMk9RMTRCaFA4Nm1vdWtCd3BiaUdMekhud084bk02RjUzSHNtMUI4YmZBLW5xQ191bHQzVGJuXzFQVSIsImlzc3VlZF9hdCI6MTM4NjI3Mzc1MCwidXNlcl9pZCI6IjEwMDAwMDQwNTQ5MTA1MyJ9",
+        //         userID: "100000405491053"
+        //     },
+        //     status: "connected"
+        // });
 
         return router.activate();
         

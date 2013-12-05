@@ -1,7 +1,7 @@
 <section class="contents">
 	
 	<div data-bind="foreach: contents">
-		<div class="item" data-bind="text: title"></div>
+		<div class="item" data-bind="text: title, click: $root.showContext"></div>
 	</div>
 
 </section>
