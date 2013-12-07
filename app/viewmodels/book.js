@@ -1,9 +1,10 @@
 define(['plugins/router',
+        'plugins/dialog',
         'service/user',
         'service/rest',
         'service/translator',
         'service/dataStore'
-        ], function (router, user, rest, translator, dataStore) {
+        ], function (router, dialog, user, rest, translator, dataStore) {
 
     var REST = rest;
 
@@ -89,7 +90,11 @@ define(['plugins/router',
             if (text.length > 0) {
                 translator.translate(text).then(function(data){
                     console.warn(data);
-                    REST.addWord(text, data, currentBook().name);
+                    dialog.showMessage('Translate: "'+data+'"', 'Text: "'+text+'"', ['Close', 'Add']).then(function(dialogResult){
+                      if(dialogResult=='Add'){
+                        REST.addWord(text, data, currentBook().name);
+                      }
+                    });                   
                 });
             }
         }

@@ -4,10 +4,10 @@
 	<!-- <div data-bind="text: currentBook().name"></div> -->
 
 	<div class="contents" data-bind="foreach: contents">
-		<div class="title" data-bind="html: title, click: $root.showContext"></div>
+		<span class="title" data-bind="html: title, click: $root.showContext"></span>
 	</div>
 	<div class="currentSection">
-		<div data-bind="html: currentSection"></div>
+		<div data-bind="html: currentSection, event: {click: getSelectedText}"></div>
 	</div>
 
 </section>
@@ -22,12 +22,26 @@
 	border: 1px solid red;
 }
 
-.readbook .contents div.title{
+.readbook .contents span.title{
 	cursor: pointer;
 }
 
-.readbook .contents div:hover {
+.readbook .contents span:hover {
 	font-weight: bold;
+}
+.contents{
+	float:left;
+	width: 15%;
+	background-color: #dfdfdf;
+	padding:3px;
+}
+.currentSection{
+	float:left;
+	width: 80%;
+	padding:5px;
+}
+.title{
+	font-size: 10px;
 }
 
 </style>
