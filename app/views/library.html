@@ -12,7 +12,7 @@
 	</div>
 
 	<div>
-		<span data-bind="event: {click: getSelectedText}">Test selection. Just select this text or one word.</span>
+		<!--<span data-bind="event: {click: getSelectedText}">Test selection. Just select this text or one word.</span>-->
 	</div>
 	
 	<div class="booklist" data-bind="foreach: user.books">
@@ -23,9 +23,11 @@
 				</div>
 			</div>
 			<center>
-				<div class="cover">
-					<img data-bind="attr: {src: cover}">
-				</div>
+				<a data-bind="attr: {href: '#book/' + name}">
+					<div class="cover">
+						<img data-bind="attr: {src: cover}">
+					</div>
+				</a>
 			</center>
 			<div class="title" data-bind="text: title"></div>
 			<div class="author" data-bind="text: author"></div>

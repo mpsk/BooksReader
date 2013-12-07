@@ -6,7 +6,7 @@
 	<div class="contents" data-bind="foreach: contents">
 		<span class="title" data-bind="html: title, click: $root.showContext"></span>
 	</div>
-	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px', font: fontName() }">
+	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px', fontFamily: fontName() }">
 		<div data-bind="html: currentSection, event: {click: getSelectedText}"></div>
 	</div>
 

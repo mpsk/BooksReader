@@ -122,7 +122,7 @@ define(['plugins/router',
                 clearInterval(check);
             }
         }, 500);
-
+       
     };
 
     return {
