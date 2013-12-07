@@ -7,6 +7,7 @@
         </div>-->
 
 
+
  <div class="ui form">
       <div class="inline fields">
         <div class="field">
@@ -14,13 +15,16 @@
           <select data-bind="options: books, optionsText: 'name', value: selectedBook, optionsCaption: 'All'"></select>
         </div>
         <div class="field">
-            <label>Search word</label>
-          <input  placeholder="Word"  type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'">
+            <label>Search word</label><br>
+          <input placeholder="Word"  type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'">
         </div>       
       </div>
     </div>
 
-        
+    <!--  if: user.fbId()=="" 
+        <div class="ui ignored info message"><STRONG>You do not have words. Please sign-in!</STRONG></div>
+    <!--  -->
+    <!--  if: user.fbId() != "" -->   
         <!-- ko if: filteredWords().length > 0 -->
             <table class="ui table segment">
                 <thead>
@@ -42,7 +46,9 @@
   
         <!-- ko if: filteredWords().length < 1 -->
             <div class="ui ignored info message"><STRONG>Nothing found!</STRONG></div>
-        <!-- /ko -->      
+        <!-- /ko -->
+        
+    <!--  -->          
 
           <br>        
     </div>	

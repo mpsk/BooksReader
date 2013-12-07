@@ -31,6 +31,7 @@ define(['service/user'], function (user) {
        selectedBook: self.selectedBook,
        books: user.books,
        filter: self.filter,
+       //fbId: user.fbId,
        deleteWord: self.deleteWord,
        filteredWords: self.filteredWords
     };
