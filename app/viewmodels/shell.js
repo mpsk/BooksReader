@@ -88,7 +88,7 @@
         router.map([
             { route: '',            moduleId: 'viewmodels/library',     title: 'Library' },
             { route: 'profile',     moduleId: 'viewmodels/profile',     title: 'Profile' },
-            { route: 'words',       moduleId: 'viewmodels/words',       title: 'Words'   },
+            { route: 'words',       moduleId: 'viewmodels/words',       title: 'Dictionary'   },
             { route: 'book/:id',    moduleId: 'viewmodels/book',        title: 'Reading' },
             { route: 'book/:id/:section',    moduleId: 'viewmodels/book',    title: 'Reading'},
             { route: 'contents/:id',    moduleId: 'viewmodels/contents',    title: 'Contents'},

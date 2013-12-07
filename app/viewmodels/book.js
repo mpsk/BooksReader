@@ -3,8 +3,9 @@ define(['plugins/router',
         'service/user',
         'service/rest',
         'service/translator',
-        'service/dataStore'
-        ], function (router, dialog, user, rest, translator, dataStore) {
+        'service/dataStore',
+        'service/options'
+        ], function (router, dialog, user, rest, translator, dataStore, options) {
 
     var REST = rest;
 
@@ -14,6 +15,7 @@ define(['plugins/router',
     var contents = ko.observableArray([]);
     var currentSection = ko.observable('');
     var bookSections = [];
+    //var fontSizeCSS = ko.observable( options.font_size );
 
     var book = {
 
@@ -97,7 +99,10 @@ define(['plugins/router',
                     });                   
                 });
             }
-        }
+        }/*,
+        fontSizeCSS: ko.computed(function() {
+            return {"fontSize": options.font_size() + "px"};
+        }, this)*/
 
     };
 
@@ -125,6 +130,8 @@ define(['plugins/router',
         user: user,
         currentBook: currentBook,
         currentSection: currentSection,
+        fontSizeCSS: options.font_size,
+        fontName: options.font_name,
         context: context,
         contents: contents,
         showContext: book.showContext,
