@@ -42,6 +42,7 @@ define(['plugins/router',
         },
 
         // Оглавление
+
         showContents: function(){
             // var xml = $.parseXML(context());
             // var body = $(context()).find('body');
@@ -52,12 +53,16 @@ define(['plugins/router',
             bookSections = sections;
 
             _.each(sections, function(item, i){
-                console.warn(item, i);
+                // console.warn(item, i);
                 var title = $(item).find('title').text();
+                var cleanTitle = title.replace(/<p>|<strong>|<\/strong>/g, '')
+                                    .replace(/<\/p>/g, '. ');
+
+                // console.warn(cleanTitle);
                 // console.warn($(item).find('title'));
                 // title = title.replace(/\n/g, '');
 
-                var section = {title: title, index: i, text: item.innerHTML};
+                var section = {title: cleanTitle, index: i, text: item.innerHTML};
                 contents.push(section);
 
                 
@@ -70,17 +75,26 @@ define(['plugins/router',
 
         // Текст
         showContext: function(selectedSection){
-            console.warn(selectedSection);
-            var that = this;
+            // var that = this;
 
+            console.warn(selectedSection, selectedSection.length);
+            contents().length === 0 ? book.showContents() : null;
+            
             _.each(contents(), function(item, i){
-                console.warn(item, i);
-                if (selectedSection && (selectedSection.index === i) ) {
-                    console.warn(item.text);
+                var cleanTitle = item.title.replace(/\n/g,'');
+                // console.warn(cleanTitle, cleanTitle.length, selectedSection.trim() == cleanTitle.trim());
+
+                // If route from contents view, via params
+                if (selectedSection.trim() == cleanTitle.trim()) {
+                    var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
                     currentSection(item.text);
-                } else if (that.index === i) {
                     console.warn(item);
+
+                // If route from book view
+                } else if (selectedSection.index === item.index){
+                    var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
                     currentSection(item.text);
+                    // console.warn(selectedSection, cleanTitle);
                 }
             });
 
@@ -110,6 +124,7 @@ define(['plugins/router',
         // FIXME: Bad solution. Maybe use trigger app events.
         contents([]);
         dataStore.bookContents = [];
+        console.warn(bookName, selectedSection);
 
         var check = setInterval(function(){
             if (user.id && !selectedSection) {
@@ -117,7 +132,7 @@ define(['plugins/router',
                 clearInterval(check);
             }
 
-            if (user.id && selectedSection) {
+            else if (user.id && selectedSection) {
                 book.getBook(bookName, selectedSection);
                 clearInterval(check);
             }

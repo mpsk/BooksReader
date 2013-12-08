@@ -2,13 +2,20 @@
 	<!-- <div class="context" data-bind="html: context, event: {click: getSelectedText}"></div> -->
 	<!-- <div data-bind="text: user.name"></div> -->
 	<!-- <div data-bind="text: currentBook().name"></div> -->
+	
 
+    <!-- ko if: !currentSection() -->
 	<div class="contents" data-bind="foreach: contents">
 		<span class="title" data-bind="html: title, click: $root.showContext"></span>
 	</div>
+	<!-- /ko --> 
+
 	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px', fontFamily: fontName() }">
 		<div data-bind="html: currentSection, event: {click: getSelectedText}"></div>
-	</div>
+
+	<!-- <div class="currentSection">
+		<div data-bind="html: currentSection"></div>
+	</div> -->
 
 </section>
 
@@ -16,6 +23,10 @@
 	
 .readbook {
 	padding: 10px;
+}
+
+.readbook .contents p {
+	margin: 0px;
 }
 
 .readbook .context {

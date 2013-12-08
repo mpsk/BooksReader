@@ -41,6 +41,11 @@ div.container div.ui.menu {
 }
 
 /* Style for tags of fb2 book(xml) */
+
+title {
+	display: block;
+}
+
 src-title-info,
 document-info {
 	display: none;
