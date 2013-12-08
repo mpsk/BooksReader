@@ -36,7 +36,7 @@
                 <div class="ui inverted vertical sidebar menu">
                         <!-- ko if: user.curBookName -->
                         <a class="item" data-bind="attr: {href: '#contents/'+user.curBookName()}">Contents</a>
-                        <a class="item" data-bind="attr: {href: '#book/'+user.curBookName()}">Current Book</a>
+                        <a class="item" data-bind="attr: {href: '#book/'+user.curBookName()+'/'+user.currentSection()}">Current Book</a>
                         <!-- <a class="item" data-bind="click: routeTo.currentBook">Book</a> -->
                         <!-- /ko -->
                         <a class="item" href="#">Library</a>

@@ -21,6 +21,7 @@ define(['plugins/router',
         routeToContext: function(section) {
             console.warn(section);
             router.navigate('#book/' + user.curBookName()+'/'+section.title);
+            user.currentSection(section.title);
         }
     };
 

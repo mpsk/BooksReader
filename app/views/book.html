@@ -8,7 +8,7 @@
 	<div class="contents" data-bind="foreach: contents">
 		<div class="title" data-bind="html: title, click: $root.showContext"></div>
 	</div>
-	<!-- /ko --> 
+	<!-- /ko -->
 
 	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px', fontFamily: fontName() }">
 		<div data-bind="html: currentSection, event: {click: getSelectedText}"></div>
@@ -47,12 +47,15 @@
 	padding:3px;
 }
 .readbook .currentSection{
-	float:left;
-	width: 80%;
-	padding:5px;
+	/*float:left;*/
+	/*width: 80%;*/
+	/*padding:5px;*/
+	/*height: */
+	overflow: overlay;
 }
+
 .readbook .title{
-	font-size: 10px;
+	font-size: 12px;
 }
 
 </style>

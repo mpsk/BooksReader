@@ -14,6 +14,8 @@ define(['plugins/router',
     var context = ko.observable('');
     var contents = ko.observableArray([]);
     var currentSection = ko.observable('');
+    var bloksOfCurrentSection = ko.observableArray([]);
+    
     var bookSections = [];
     //var fontSizeCSS = ko.observable( options.font_size );
 
@@ -56,7 +58,7 @@ define(['plugins/router',
                 // console.warn(item, i);
                 var title = $(item).find('title').text();
                 var cleanTitle = title.replace(/<p>|<strong>|<\/strong>/g, '')
-                                    .replace(/<\/p>/g, '. ');
+                                    .replace(/<\/p>/g, ' ');
 
                 // console.warn(cleanTitle);
                 // console.warn($(item).find('title'));
@@ -64,11 +66,11 @@ define(['plugins/router',
 
                 var section = {title: cleanTitle, index: i, text: item.innerHTML};
                 contents.push(section);
-
                 
             });
 
             dataStore.bookContents = contents();
+            currentSection('');
 
             console.warn(contents());
         },
@@ -82,8 +84,8 @@ define(['plugins/router',
             
             _.each(contents(), function(item, i){
                 var cleanTitle = item.title.replace(/\n/g,'');
-                // console.warn(cleanTitle, cleanTitle.length, selectedSection.trim() == cleanTitle.trim());
 
+                // if string
                 if (!selectedSection.title) {
                     if (selectedSection.trim() == cleanTitle.trim()) {
                         var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
@@ -91,6 +93,8 @@ define(['plugins/router',
                         console.warn(item);
                     }
                 }
+
+                // if object
                 else {
                     // If route from book view
                     if (selectedSection.index === item.index){
@@ -128,7 +132,7 @@ define(['plugins/router',
         // FIXME: Bad solution. Maybe use trigger app events.
         contents([]);
         dataStore.bookContents = [];
-        console.warn(bookName, selectedSection);
+        // console.warn(bookName, selectedSection);
 
         var check = setInterval(function(){
             if (user.id && !selectedSection) {

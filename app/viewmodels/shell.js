@@ -85,7 +85,7 @@
                 router.navigate('#book/'+user.curBookName(), false);
             }
         }
-    }
+    };
 
     function activate() {
         router.map([
