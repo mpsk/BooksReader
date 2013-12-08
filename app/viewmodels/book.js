@@ -84,18 +84,22 @@ define(['plugins/router',
                 var cleanTitle = item.title.replace(/\n/g,'');
                 // console.warn(cleanTitle, cleanTitle.length, selectedSection.trim() == cleanTitle.trim());
 
-                // If route from contents view, via params
-                if (selectedSection.trim() == cleanTitle.trim()) {
-                    var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
-                    currentSection(item.text);
-                    console.warn(item);
-
-                // If route from book view
-                } else if (selectedSection.index === item.index){
-                    var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-                    currentSection(item.text);
-                    // console.warn(selectedSection, cleanTitle);
+                if (!selectedSection.title) {
+                    if (selectedSection.trim() == cleanTitle.trim()) {
+                        var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
+                        currentSection(item.text);
+                        console.warn(item);
+                    }
                 }
+                else {
+                    // If route from book view
+                    if (selectedSection.index === item.index){
+                        var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                        currentSection(item.text);
+                        // console.warn(selectedSection, cleanTitle);
+                    }
+                }
+
             });
 
             // console.warn(dataStore.bookContents);
