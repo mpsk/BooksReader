@@ -1,5 +1,6 @@
-define(['service/user'], function (user) {
+define(['service/rest', 'service/user'], function (rest, user) {
 
+    var REST = rest;
     var selectedBook = ko.observable('');
     var filter = ko.observable('');
 
@@ -24,20 +25,25 @@ define(['service/user'], function (user) {
                 return result;
             });
         }),
-        
+
         deleteWord: function(obj) {
             user.words.remove(this);
         }
     };
+
+    function deactivate (para){
+        REST.updateUser(user);
+    };
    
 
     return {
-       words: user.words,
-       selectedBook: selectedBook,
-       books: user.books,
-       filter: filter,
-       //fbId: user.fbId,
-       deleteWord: self.deleteWord,
-       filteredWords: self.filteredWords
+        deactivate: deactivate,
+        words: user.words,
+        selectedBook: selectedBook,
+        books: user.books,
+        filter: filter,
+        //fbId: user.fbId,
+        deleteWord: self.deleteWord,
+        filteredWords: self.filteredWords
     };
 })
