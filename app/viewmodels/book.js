@@ -15,6 +15,7 @@ define(['plugins/router',
     var contents = ko.observableArray([]);
     var currentSection = ko.observable('');
     var bloksOfCurrentSection = ko.observableArray([]);
+    var showLoader = ko.observable(false);
     
     var bookSections = [];
     //var fontSizeCSS = ko.observable( options.font_size );
@@ -112,13 +113,15 @@ define(['plugins/router',
         getSelectedText: function(vm, evt){
             var text = $.selection();
             if (text.length > 0) {
+                showLoader(true);   
                 translator.translate(text).then(function(data){
                     console.warn(data);
+                     showLoader(false);
                     dialog.showMessage('Translate: "'+data+'"', 'Text: "'+text+'"', ['Close', 'Add']).then(function(dialogResult){
                       if(dialogResult=='Add'){
                         REST.addWord(text, data, currentBook().name);
-                      }
-                    });                   
+                      }                     
+                    });
                 });
             }
         }/*,
@@ -162,6 +165,7 @@ define(['plugins/router',
         context: context,
         contents: contents,
         showContext: book.showContext,
-        getSelectedText: book.getSelectedText
+        getSelectedText: book.getSelectedText,
+        showLoader: showLoader
     };
 })

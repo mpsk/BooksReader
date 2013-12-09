@@ -11,6 +11,7 @@
 	<!-- /ko -->
 
 	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px'}">
+		<div class="roll" data-bind="visible: showLoader"><IMG src='images/ajax-loader.gif' /> Loading...</div>
 		<div id='d10' data-bind="html: currentSection, event: {click: getSelectedText}, style: {fontFamily: fontName}"></div>
 
 	<!-- <div class="currentSection">
@@ -57,5 +58,7 @@
 .readbook .title{
 	font-size: 12px;
 }
-
+.roll{
+	text-align:center;
+}
 </style>
