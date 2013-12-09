@@ -145,7 +145,11 @@ define(['plugins/router',
                 clearInterval(check);
             }
         }, 500);
-       
+
+        setInterval(function(){
+           $("#d10").find( $("p") ).css('font-family', options.font_name() );
+        },3000);       
+        
     };
 
     return {

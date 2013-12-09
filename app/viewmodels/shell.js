@@ -37,6 +37,7 @@
                     if(data.status === 'unknown'){
                         profile.btnText('Login');
                         profile.txtLogin('');
+                        REST.updateUser(user);                        
                     } 
                     profile.fbId('');
                     user.name('');

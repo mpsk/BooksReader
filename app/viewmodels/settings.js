@@ -1,7 +1,7 @@
 define(['service/options','service/rest'], function(options, rest) {
    
    	var font_sizes = [6,8,10,12,14,16,18,20,24,28,32];
-	var font_family = ['Arial','Georgia','Times New Roman','Serif','Verdana'];
+	var font_family = ['Arial','Georgia','Tahoma','Times New Roman','Serif','Verdana'];
 	function saveChanges(){
 		//rest.updateUser();			
 	}

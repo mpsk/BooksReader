@@ -103,6 +103,7 @@ define(['durandal/system',
 						user.books(result.books || []);
 						console.log(result.settings);
 						options.font_size(result.settings.font_size);
+						options.font_name(result.settings.font_name);
 						
 						bookStore.id = data.id+'_books';
 						
@@ -195,7 +196,8 @@ define(['durandal/system',
 		updateUser: function(user){
 
 			delete user.__moduleId__;
-			user.settings.font_size =options.font_size();
+			user.settings.font_size = options.font_size();
+			user.settings.font_name = options.font_name();
 
 			$.ajax({
 				url: DB.root+'/'+user.id+'?rev='+user.rev,
@@ -275,11 +277,6 @@ define(['durandal/system',
 
 		addWord: function(my_word, my_translate, my_book){
 
-			// var dfd = $.Deferred();
-			
-			//var id_="cbdfbc7fbb7093a233f9ac745d000f0d";
-			//var rev_="1-ddf139631a16b6c291172f48ae47526f";
-
 			delete user.__moduleId__;
 
 			console.log(user);
@@ -289,14 +286,7 @@ define(['durandal/system',
 				book: my_book
 			};
 			user.words.push(word);
-			rest.updateUser(user);
-			// var updated_user = {
-			// 	id: user.id,
-			// 	fbId: user.fbId,
-			// 	name: user.name,
-		 //        books: user.books,
-		 //        words: user.words
-			// };
+			rest.updateUser(user);			
 		}
 		/*,
 		getWords: function(bookStoreId){

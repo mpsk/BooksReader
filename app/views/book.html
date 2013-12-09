@@ -10,8 +10,8 @@
 	</div>
 	<!-- /ko -->
 
-	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px', fontFamily: fontName() }">
-		<div data-bind="html: currentSection, event: {click: getSelectedText}"></div>
+	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px'}">
+		<div id='d10' data-bind="html: currentSection, event: {click: getSelectedText}, style: {fontFamily: fontName}"></div>
 
 	<!-- <div class="currentSection">
 		<div data-bind="html: currentSection"></div>
