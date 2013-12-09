@@ -28,6 +28,7 @@ define(['plugins/router',
                 if (item.name === bookName) {
                     //user.curBookName(bookName);
                     //console.info('CURRENT BOOK IS '+user.curBookName());
+                    user.curBookName(bookName);
                     currentBook(item);
                 }
             });
@@ -37,7 +38,6 @@ define(['plugins/router',
                 console.warn(xml);
                 context(text);
 
-                // book.showContents();
                 selectedSection ? book.showContext(selectedSection) : book.showContents();
 
             });
@@ -73,14 +73,14 @@ define(['plugins/router',
             dataStore.bookContents = contents();
             currentSection('');
 
-            console.warn(contents());
+            // console.warn(contents());
         },
 
         // Текст
         showContext: function(selectedSection){
             // var that = this;
 
-            console.warn(selectedSection, selectedSection.length);
+            // console.warn(selectedSection, selectedSection.length);
             contents().length === 0 ? book.showContents() : null;
             
             _.each(contents(), function(item, i){
@@ -91,7 +91,9 @@ define(['plugins/router',
                     if (selectedSection.trim() == cleanTitle.trim()) {
                         var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
                         currentSection(item.text);
-                        console.warn(item);
+
+                        // book.separateSection(item.text);
+                        // currentSection(bloksOfCurrentSection()[0].block);
                     }
                 }
 
@@ -101,13 +103,44 @@ define(['plugins/router',
                     if (selectedSection.index === item.index){
                         var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
                         currentSection(item.text);
-                        // console.warn(selectedSection, cleanTitle);
+                        router.navigate('#book/'+user.curBookName()+'/'+item.title);
+
+                        // book.separateSection(item.text);
                     }
                 }
 
             });
 
             // console.warn(dataStore.bookContents);
+        },
+
+        separateSection: function(section){
+            // console.warn(section);
+            // Need to skip HTML tags in string section
+            var num = 1000;
+            // var out = section.match(/(.{1,500}\s)\s*/g);
+            // var out = section.match(/.{1,500}/g);
+            var out = section.split(/(.{1000})/);
+
+            _.each(out, function(block, i){
+                bloksOfCurrentSection.push({block: block, index: i});
+            })
+
+            console.warn(bloksOfCurrentSection());
+        },
+
+        nextBlock: function(){
+            var r = router.activeInstruction();
+            var selectedSection = r.params[1];
+
+            _.each(contents(), function(item, i){
+                var cleanTitle = item.title.replace(/\n/g,'');
+                if (selectedSection.trim() == cleanTitle.trim()) {
+                    item.index++;
+                    book.showContext(item);
+                }
+            });
+
         },
 
         getSelectedText: function(vm, evt){
@@ -135,7 +168,6 @@ define(['plugins/router',
         // FIXME: Bad solution. Maybe use trigger app events.
         contents([]);
         dataStore.bookContents = [];
-        // console.warn(bookName, selectedSection);
 
         var check = setInterval(function(){
             if (user.id && !selectedSection) {
@@ -145,6 +177,7 @@ define(['plugins/router',
 
             else if (user.id && selectedSection) {
                 book.getBook(bookName, selectedSection);
+                user.currentSection(selectedSection);
                 clearInterval(check);
             }
         }, 500);
@@ -164,6 +197,7 @@ define(['plugins/router',
         fontName: options.font_name,
         context: context,
         contents: contents,
+        nextBlock: book.nextBlock,
         showContext: book.showContext,
         getSelectedText: book.getSelectedText,
         showLoader: showLoader
