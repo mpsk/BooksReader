@@ -11,8 +11,8 @@
 	<!-- /ko -->
 
 	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px'}">
-		<div class="roll" data-bind="visible: showLoader"><IMG src='images/ajax-loader.gif' /> Loading...</div>
-		<div id='d10' data-bind="html: currentSection, event: {click: getSelectedText}, style: {fontFamily: fontName}"></div>
+	<div class="roll" data-bind="visible: showLoader"><IMG src='images/ajax-loader.gif' /> Loading...</div>
+	<div id='d10' data-bind="html: currentSection, event: {click: getSelectedText}, style: {fontFamily: fontName}"></div>
 	<div class="ui button mini" data-bind="click: nextBlock">NEXT</div>
 
 
@@ -47,13 +47,13 @@
 	/*float:left;*/
 	/*width: 15%;*/
 	background-color: #dfdfdf;
-	padding:3px;
+	padding: 3px;
 }
 .readbook .currentSection{
 	/*float:left;*/
 	/*width: 80%;*/
 	/*padding:5px;*/
-	/*height: */
+	height: 600px;
 	overflow: overlay;
 }
 

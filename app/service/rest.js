@@ -286,7 +286,7 @@ define(['durandal/system',
 				book: my_book
 			};
 			user.words.push(word);
-			rest.updateUser(user);			
+			rest.updateUser(user);
 		}
 		/*,
 		getWords: function(bookStoreId){
