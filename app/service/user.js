@@ -8,9 +8,10 @@ define([], function () {
         username: ko.observable(''),
         books: ko.observableArray([]),
         words: ko.observableArray([]),
-        // FIXME: Should not be here (current book name);
-        // And rewrite curBookName and section to one object
-        curBookName: ko.observable(''),
+        settings: {
+            font_size: 12,
+            font_name: ''
+        },    
         currentSection: ko.observable('')
     }
 

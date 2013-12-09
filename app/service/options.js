@@ -1,8 +1,8 @@
 define([], function () {
 
 	var settings = {
-		font_size: ko.observable(12),
-       	font_name: ko.observable('Verdana')
+		font_size: ko.observable(),
+       	font_name: ko.observable('')
     }
 
     return settings;

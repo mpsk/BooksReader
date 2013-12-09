@@ -2,7 +2,8 @@ define(['durandal/system',
 		'plugins/http',
 		'service/reader',
 		'service/user', 
-		'service/bookStore'], function (system, http, reader, user, bookStore) {
+		'service/bookStore',
+		'service/options'], function (system, http, reader, user, bookStore, options) {
 
    	var location = window.location;
 
@@ -100,7 +101,9 @@ define(['durandal/system',
 						user.fbId = result.fbId;
 						user.words(result.words || []);
 						user.books(result.books || []);
-
+						console.log(result.settings);
+						options.font_size(result.settings.font_size);
+						
 						bookStore.id = data.id+'_books';
 						
 						rest.getCurrentUserBookStore(bookStore.id).then(function(resp){
@@ -192,6 +195,7 @@ define(['durandal/system',
 		updateUser: function(user){
 
 			delete user.__moduleId__;
+			user.settings.font_size =options.font_size();
 
 			$.ajax({
 				url: DB.root+'/'+user.id+'?rev='+user.rev,
