@@ -1,4 +1,4 @@
-define(['service/rest', 'service/user'], function (rest, user) {
+define(['service/rest', 'service/user', 'durandal/app'], function (rest, user, app) {
 
     var REST = rest;
     var selectedBook = ko.observable('');
@@ -28,13 +28,32 @@ define(['service/rest', 'service/user'], function (rest, user) {
 
         deleteWord: function(obj) {
             user.words.remove(this);
+        },
+        editWord: function(obj) {
+            //debugger;
+          app.showDialog('viewmodels/sender').then(function(dialogResult){
+              //do something with the dialog result here
+            });
+        },
+
+        sortWords: function(){
+            console.info('sort');          
         }
     };
 
     function deactivate (para){
         REST.updateUser(user);
     };
-   
+   var sortFunction = function(a, b) {
+        return a.text < b.text ? -1 : 1;
+    };
+    var sortedWords = ko.computed(function() {
+       return self.filteredWords().sort(function (left, right) { 
+            return left.text == right.text ? 
+                 0 : 
+                 (left.text < right.text ? -1 : 1); 
+        });
+      }); 
 
     return {
         deactivate: deactivate,
@@ -44,6 +63,8 @@ define(['service/rest', 'service/user'], function (rest, user) {
         filter: filter,
         //fbId: user.fbId,
         deleteWord: self.deleteWord,
-        filteredWords: self.filteredWords
+        filteredWords: self.filteredWords,
+        sortedWords: sortedWords,
+        editWord: self.editWord
     };
 })

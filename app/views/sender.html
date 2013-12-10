@@ -1,0 +1,17 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>  
+      <th></th>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>  
+  <tbody data-bind="foreach: items">     
+    <tr data-bind="click: $parent.showMessage">
+      <td data-bind="text: item"></td>
+      <td data-bind="text: price"></td>
+      <td data-bind="text: quantity"></td>
+    </tr>
+  </tbody>
+</table>

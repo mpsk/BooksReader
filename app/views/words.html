@@ -17,7 +17,7 @@
         <div class="field">
             <label>Search word</label><br>
           <input placeholder="Word"  type="text" data-bind="value: filter, valueUpdate: 'afterkeydown'">
-        </div>       
+        </div>           
       </div>
     </div>
 
@@ -30,10 +30,10 @@
                 <thead>
                     <tr><th>Word</th><th>Translate</th><th colspan="2">Book</th></tr>
                 </thead>
-                <tbody data-bind="foreach: filteredWords">
+                <tbody data-bind="foreach: sortedWords()">
                     <tr width='600px'>
                         <td data-bind="text: text" width='250px'></td>
-                        <td data-bind="text: translate" width='250px'></td>
+                        <td><span data-bind="text: translate" width='250px'></span> <a data-bind="click: $parent.editWord" style='cursor:pointer;'><i class="icon pencil">&nbsp;</i></a></td>
                         <td><a data-bind="attr: {href: '#book/'+book}">
                             <span data-bind="text: book"></span>
                            </a> 
