@@ -64,7 +64,8 @@ define(['plugins/router',
                 // console.warn(cleanTitle);
                 // console.warn($(item).find('title'));
                 // title = title.replace(/\n/g, '');
-
+                // console.warn(item);
+                // contents.push({title: title, value: item});
                 var section = {title: cleanTitle, index: i, text: item.innerHTML};
                 contents.push(section);
                 
@@ -80,17 +81,19 @@ define(['plugins/router',
         showContext: function(selectedSection){
             // var that = this;
 
-            // console.warn(selectedSection, selectedSection.length);
+            // console.warn($(selectedSection.value).html());
             contents().length === 0 ? book.showContents() : null;
             
             _.each(contents(), function(item, i){
                 var cleanTitle = item.title.replace(/\n/g,'');
 
+                // FIXME: How to skip '?' and HTML tags?
                 // if string
                 if (!selectedSection.title) {
                     if (selectedSection.trim() == cleanTitle.trim()) {
-                        var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
+                        // var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
                         currentSection(item.text);
+                        // console.warn(item.text);
 
                         // book.separateSection(item.text);
                         // currentSection(bloksOfCurrentSection()[0].block);
@@ -101,10 +104,11 @@ define(['plugins/router',
                 else {
                     // If route from book view
                     if (selectedSection.index === item.index){
-                        var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                        // var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
                         currentSection(item.text);
                         router.navigate('#book/'+user.curBookName()+'/'+item.title);
 
+                        // currentSection($(item.value).html());
                         // book.separateSection(item.text);
                     }
                 }
@@ -182,9 +186,10 @@ define(['plugins/router',
             }
         }, 500);
 
+        // FIXME: Need to set setting via ko
         setInterval(function(){
            $("#d10").find( $("p") ).css('font-family', options.font_name() );
-        },3000);       
+        }, 2000);       
         
     };
 

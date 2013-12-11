@@ -6,7 +6,8 @@
 
     <!-- ko if: !currentSection() -->
 	<div class="contents" data-bind="foreach: contents">
-		<div class="title" data-bind="html: title, click: $root.showContext"></div>
+		<!-- <div class="title" data-bind="html: title, click: $root.showContext"></div> -->
+		<div class="title" data-bind="text: $data.title, click: $root.showContext"></div>
 	</div>
 	<!-- /ko -->
 
