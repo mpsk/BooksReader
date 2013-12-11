@@ -13,7 +13,7 @@
 
 	<div class="currentSection" data-bind="style: { fontSize: fontSizeCSS()  + 'px'}">
 	<div class="roll" data-bind="visible: showLoader"><IMG src='images/ajax-loader.gif' /> Loading...</div>
-	<div class="WordAddInformer" data-bind="fadeVisible: showWordAddInformer"> <i class="add sign box icon"></i>Word added to the dictionary</div>
+	<div class="WordAddInformer"  data-bind="fadeVisible: showWordAddInformer"> <i class="add sign box icon"></i>Word added to the dictionary</div>
 	<div id='d10' data-bind="html: currentSection, event: {click: getSelectedText}, style: {fontFamily: fontName}"></div>
 	<div class="ui button mini" data-bind="click: nextBlock">NEXT</div>
 
