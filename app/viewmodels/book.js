@@ -67,6 +67,7 @@ define(['plugins/router',
                 // title = title.replace(/\n/g, '');
                 // console.warn(item);
                 // contents.push({title: title, value: item});
+
                 var section = {title: cleanTitle, index: i, text: item.innerHTML};
                 contents.push(section);
                 
@@ -86,15 +87,19 @@ define(['plugins/router',
             contents().length === 0 ? book.showContents() : null;
             
             _.each(contents(), function(item, i){
-                var cleanTitle = item.title.replace(/\n/g,'');
+                var cleanTitle = item.title.replace(/\n/g,"");
 
                 // FIXME: How to skip '?' and HTML tags?
                 // if string
                 if (!selectedSection.title) {
                     if (selectedSection.trim() == cleanTitle.trim()) {
                         // var cleanText = item.text.replace('&lt;', '<').replace('&gt;', '>');
-                        currentSection(item.text);
-                        // console.warn(item.text);
+                        currentSection(item.text.replace("&lt;p&gt;","")
+                                                .replace("&lt;/p&gt;","")
+                                                .replace("&lt;strong&gt;","")
+                                                .replace("&lt;/strong&gt;",""));
+                        
+                        // console.warn(item.text.replace("&lt;p&gt;","").replace("&lt;/p&gt;",""));
 
                         // book.separateSection(item.text);
                         // currentSection(bloksOfCurrentSection()[0].block);
@@ -106,7 +111,11 @@ define(['plugins/router',
                     // If route from book view
                     if (selectedSection.index === item.index){
                         // var cleanText = item.text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-                        currentSection(item.text);
+                        currentSection(item.text.replace("&lt;p&gt;","")
+                                                .replace("&lt;/p&gt;","")
+                                                .replace("&lt;strong&gt;","")
+                                                .replace("&lt;/strong&gt;",""));
+
                         router.navigate('#book/'+user.curBookName()+'/'+item.title);
 
                         // currentSection($(item.value).html());

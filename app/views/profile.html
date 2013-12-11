@@ -1,16 +1,26 @@
-<section>
+<section class="profile">
     <div class="container" style="padding:15px;">
 
-    	<!-- ko if: nameName -->        
-        <div class='avatar' id='userinfo'></div>
+    	<!-- ko if: user.username -->        
+        <div class='avatar' id='userinfo'>
+            <!-- <img data-bind="attr: {src: avatar}"> -->
+        </div>
         <div class='profile_content'>
-    	   <p>User name: <span data-bind='text: nameName'></span></p>
-           <p>Books count: <span data-bind='text: books_count1'></span></p>
-           <p>Words count: <span data-bind='text: words_count1'></span></p>
-        </div>   
+    	   <p>User name: <span data-bind='text: user.name'></span></p>
+        </div>
+        <div class="ui compact menu">
+          <a class="item" href="#">
+            <i class="icon book"></i> Books
+            <div class="floating ui red label" data-bind="text: books_count1"></div>
+          </a>
+          <a class="item" href="#words">
+            <i class="icon pencil"></i> Words
+            <div class="floating ui teal label" data-bind="text: words_count1"></div>
+          </a>
+        </div>
        <!-- /ko -->
     	
-		<!-- ko if: !nameName -->
+		<!-- ko if: !user.username -->
     	<p>Please login!</p>
     	<!-- /ko -->
     	
@@ -18,6 +28,17 @@
 </section>    
 
 <style>
-    .avatar{width:150px; heigth:150px;}
-    .profile_content{float:left; width:350px;}
+
+section.profile .container{
+    text-align: center;
+}
+
+.avatar img{
+    border-radius: 50%;
+    /*width:150px;*/
+}
+
+.profile_content {
+    padding: 20px;
+}
 </style>

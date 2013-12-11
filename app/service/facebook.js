@@ -1,4 +1,4 @@
-define([], function () {
+define(['plugins/http', 'service/user'], function (http, user) {
     
     var facebook = {
 
@@ -60,11 +60,6 @@ define([], function () {
             console.log('getUserAvatar');
             http.get("http://graph.facebook.com/"+user.fbId+"/picture?type=large")
                 .done(function(result){
-                    //var result = JSON.parse(result);
-                    console.log('GET USER AVATAR');
-                    
-                    
-
                     dfd.resolve(result);
 
                 })
