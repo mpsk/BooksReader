@@ -40,7 +40,6 @@ define(['service/rest', 'service/user'], function (rest, user) {
         },
 
         updateWord: function(){
-           //edit_word.translate = word_value();
            ko.utils.arrayFilter(user.words(), function(words1) {
                if(words1.text==edit_word.text) {
                     words1.translate = word_value();
@@ -67,7 +66,16 @@ define(['service/rest', 'service/user'], function (rest, user) {
         });
       }); */
 
-    
+     function activate() {
+        console.log('CUR BOOK ' + user.curBookName());
+        if(user.curBookName().length>0){
+            ko.utils.arrayFilter(user.books(), function(book) {
+               if(book.name==user.curBookName()) {
+                   selectedBook(book);
+               }
+           });            
+        }
+     }
 
     return {
         deactivate: deactivate,
@@ -77,9 +85,9 @@ define(['service/rest', 'service/user'], function (rest, user) {
         filter: filter,
         deleteWord: self.deleteWord,
         filteredWords: self.filteredWords,
-        //sortedWords: sortedWords,
         editWord: self.editWord,
         word_value: word_value,
-        updateWord: self.updateWord
+        updateWord: self.updateWord,
+        activate: activate
     };
 })
