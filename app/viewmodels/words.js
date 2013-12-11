@@ -40,7 +40,14 @@ define(['service/rest', 'service/user'], function (rest, user) {
         },
 
         updateWord: function(){
-           edit_word.translate = word_value();
+           //edit_word.translate = word_value();
+           ko.utils.arrayFilter(user.words(), function(words1) {
+               if(words1.text==edit_word.text) {
+                    words1.translate = word_value();
+               }
+           });
+           filter('/');
+           filter('');
             $('#dialog').modal('hide');
         }       
 
@@ -52,13 +59,13 @@ define(['service/rest', 'service/user'], function (rest, user) {
    var sortFunction = function(a, b) {
         return a.text < b.text ? -1 : 1;
     };
-    var sortedWords = ko.computed(function() {
+    /*var sortedWords = ko.computed(function() {
        return self.filteredWords().sort(function (left, right) { 
             return left.text == right.text ? 
                  0 : 
                  (left.text < right.text ? -1 : 1); 
         });
-      }); 
+      }); */
 
     
 
@@ -70,7 +77,7 @@ define(['service/rest', 'service/user'], function (rest, user) {
         filter: filter,
         deleteWord: self.deleteWord,
         filteredWords: self.filteredWords,
-        sortedWords: sortedWords,
+        //sortedWords: sortedWords,
         editWord: self.editWord,
         word_value: word_value,
         updateWord: self.updateWord

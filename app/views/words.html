@@ -30,7 +30,7 @@
                 <thead>
                     <tr><th>Word</th><th>Translate</th><th colspan="2">Book</th></tr>
                 </thead>
-                <tbody data-bind="foreach: sortedWords()">
+                <tbody data-bind="foreach: filteredWords()">
                     <tr width='600px'>
                         <td data-bind="text: text" width='250px'></td>
                         <td><span data-bind="text: translate" width='250px'></span> <a data-bind="click: $parent.editWord" style="cursor:pointer;" ><i class="icon pencil">&nbsp;</i></a></td>
