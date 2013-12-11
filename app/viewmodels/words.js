@@ -4,6 +4,7 @@ define(['service/rest', 'service/user'], function (rest, user) {
     var selectedBook = ko.observable('');
     var filter = ko.observable('');
     var word_value = ko.observable('');
+    var edit_word;
 
     var self = {
 
@@ -29,15 +30,20 @@ define(['service/rest', 'service/user'], function (rest, user) {
 
         deleteWord: function(obj) {
             user.words.remove(this);
+            REST.updateUser(user);
         },
         editWord: function(obj) {
             word_value(obj.translate);
-            $('#dialog').modal('show');          
+            edit_word = obj;
+            $('#dialog').modal('show');   
+            REST.updateUser(user);       
         },
 
-        sortWords: function(){
-            console.info('sort');          
-        }
+        updateWord: function(){
+           edit_word.translate = word_value();
+            $('#dialog').modal('hide');
+        }       
+
     };
 
     function deactivate (para){
@@ -62,11 +68,11 @@ define(['service/rest', 'service/user'], function (rest, user) {
         selectedBook: selectedBook,
         books: user.books,
         filter: filter,
-        //fbId: user.fbId,
         deleteWord: self.deleteWord,
         filteredWords: self.filteredWords,
         sortedWords: sortedWords,
         editWord: self.editWord,
-        word_value: word_value
+        word_value: word_value,
+        updateWord: self.updateWord
     };
 })
