@@ -24,8 +24,7 @@ function (app, system, viewLocator, dataStore) {
 
     app.configurePlugins({
         router: true,
-        dialog: true,
-        showDialog: true
+        dialog: true
     });
 
     app.start().then(function(){
