@@ -16,6 +16,7 @@ define(['plugins/router',
     var currentSection = ko.observable('');
     var bloksOfCurrentSection = ko.observableArray([]);
     var showLoader = ko.observable(false);
+    var showWordAddInformer = ko.observable(false);
     
     var bookSections = [];
     //var fontSizeCSS = ko.observable( options.font_size );
@@ -157,14 +158,16 @@ define(['plugins/router',
                     dialog.showMessage('Translate: "'+data+'"', 'Text: "'+text+'"', ['Close', 'Add']).then(function(dialogResult){
                       if(dialogResult=='Add'){
                         REST.addWord(text, data, currentBook().name);
+                            showWordAddInformer(true);
+                            setTimeout(function(){
+                                showWordAddInformer(false);
+                            },4500);
+                        //};
                       }                     
                     });
                 });
             }
-        }/*,
-        fontSizeCSS: ko.computed(function() {
-            return {"fontSize": options.font_size() + "px"};
-        }, this)*/
+        }
 
     };
 
@@ -193,6 +196,20 @@ define(['plugins/router',
         
     };
 
+
+    ko.bindingHandlers.fadeVisible = {
+        init: function(element, valueAccessor) {
+            // Initially set the element to be instantly visible/hidden depending on the value
+            var value = valueAccessor();
+            $(element).toggle(ko.unwrap(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
+        },
+        update: function(element, valueAccessor) {
+            // Whenever the value subsequently changes, slowly fade the element in or out
+            var value = valueAccessor();
+            ko.unwrap(value) ? $(element).fadeIn() : $(element).fadeOut();
+        }
+    };
+
     return {
         activate: activate,
         user: user,
@@ -205,6 +222,7 @@ define(['plugins/router',
         nextBlock: book.nextBlock,
         showContext: book.showContext,
         getSelectedText: book.getSelectedText,
-        showLoader: showLoader
+        showLoader: showLoader,
+        showWordAddInformer: showWordAddInformer
     };
 })
