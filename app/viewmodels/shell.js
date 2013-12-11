@@ -66,7 +66,8 @@
                     user.fbId = response.id;
                     user.name(response.name);
                     user.username(response.username);
-
+                    user.fbProfile = response;
+                    
                     REST.getCurrentUser(user).then(function(answer) {
                         console.warn('WELLCOME SCREEN or User Library', answer);
                     });

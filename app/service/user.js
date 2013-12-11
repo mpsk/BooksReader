@@ -4,6 +4,7 @@ define([], function () {
 		id: '',
 		rev: '',
 		fbId: '',
+        fbProfile: '',
 		name: ko.observable(''),
         username: ko.observable(''),
         books: ko.observableArray([]),
